@@ -61,8 +61,6 @@ def draw_window():
     pygame.display.flip()
 
 while True:
-    # x+=4
-    # y+=1
     for bullet in bullets:
         if bullet.x < 500 and bullet.x > 0:
             bullet.x += bullet.vel
