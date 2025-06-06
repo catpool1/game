@@ -1,4 +1,6 @@
 import pygame
+from models.player import Player
+
 
 # screen settings
 pygame.init()
@@ -31,6 +33,10 @@ clock = pygame.time.Clock()
 font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
+# player model
+player = Player(250, 0, 50, 50, 10)
+
+
 # main cycle
 while True:
     for e in pygame.event.get():
@@ -41,24 +47,15 @@ while True:
     # background
     screen.fill((255, 255, 255))
 
-    # character
-    pygame.draw.circle(screen, (255, 0, 0), (x, HEIGHT-y), 25, 25)
-
     # movement
     if keys[pygame.K_a] and keys[pygame.K_d]:
         pass
 
-    elif keys[pygame.K_a] and x > move_x_limit:
-        if x - move_speed < move_x_limit:
-            x = move_x_limit
-        else:
-            x -= move_speed
+    elif keys[pygame.K_a]:
+        player.move_left()
 
-    elif keys[pygame.K_d] and x < WIDTH - move_x_limit:
-        if x + move_speed > WIDTH - move_x_limit:
-            x = WIDTH - move_x_limit
-        else:
-            x += move_speed
+    elif keys[pygame.K_d]:
+        player.move_right(WIDTH)
 
 
     # jumps
@@ -67,15 +64,10 @@ while True:
             is_jump = True
 
     else:
-        if jump_count >= -jump_limit:
-            if jump_count < 0:
-                y -= (jump_count ** 2) / 2
-            else:
-                y += (jump_count ** 2) / 2
-            jump_count -= 1
-        else:
+        if not player.jump():
             is_jump = False
-            jump_count = jump_limit
+
+    player.blit(screen, HEIGHT)
 
     # display update
     text_fps = font_fps.render(f'FPS: {int(clock.get_fps())}', True, (0, 0, 0))
