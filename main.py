@@ -1,8 +1,11 @@
 import pygame
+
+# screen settings
 pygame.init()
 WIDTH, HEIGHT = 1280, 720
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 
+# character settings
 body_width: int = 50
 body_height: int = 50
 
@@ -19,18 +22,24 @@ jump_height: int = 10
 left: bool = False
 right: bool = False
 
+# clock
 clock = pygame.time.Clock()
 
-while True:
-    screen.fill((255, 255, 255))
-    pygame.draw.circle(screen, (255, 0, 0), (x, y), 25, 25)
 
+# main cycle
+while True:
     for e in pygame.event.get():
         if e.type == pygame.QUIT:
             exit()
     keys = pygame.key.get_pressed()
 
+    # background
+    screen.fill((255, 255, 255))
 
+    # character
+    pygame.draw.circle(screen, (255, 0, 0), (x, y), 25, 25)
+
+    # movement
     if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]:
         pass
 
@@ -47,5 +56,8 @@ while True:
             x += speed
 
 
+    # jumps
+
+    # display update
     pygame.display.flip()
     clock.tick(60)
