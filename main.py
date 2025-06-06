@@ -1,10 +1,13 @@
 import pygame
 pygame.init()
-WIDTH, HEIGHT = 500, 500
+WIDTH, HEIGHT = 1280, 720
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 
 body_width: int = 50
 body_height: int = 50
+
+move_x_limit = body_width//2
+move_y_limit = body_height//2
 
 x: int = 250
 y: int = HEIGHT-body_height//2
@@ -27,15 +30,19 @@ while True:
             exit()
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT] and x > body_width//2:
-        if x - speed < body_width//2:
-            x = body_width//2
+
+    if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]:
+        pass
+
+    elif keys[pygame.K_LEFT] and x > move_x_limit:
+        if x - speed < move_x_limit:
+            x = move_x_limit
         else:
             x -= speed
 
-    elif keys[pygame.K_RIGHT] and x < WIDTH-body_width//2:
-        if x + speed > WIDTH-body_width // 2:
-            x += WIDTH-body_width//2
+    elif keys[pygame.K_RIGHT] and x < WIDTH - move_x_limit:
+        if x + speed > WIDTH - move_x_limit:
+            x = WIDTH - move_x_limit
         else:
             x += speed
 
