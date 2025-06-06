@@ -88,6 +88,8 @@ while True:
         left = False
         right = False
         animCount = 0
+
+
     if not (isjump):
         # if keys[pygame.K_UP] and y>25:
         #     y -= speed
@@ -105,6 +107,7 @@ while True:
         else:
             isjump = False
             jumpcount = 10
+
     if keys[pygame.K_DOWN]:
         if lastmove == "right":
             facing = 1

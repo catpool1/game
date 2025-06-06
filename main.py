@@ -9,15 +9,17 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 body_width: int = 50
 body_height: int = 50
 
-move_x_limit = body_width//2
-move_y_limit = body_height//2
+move_x_limit: int = body_width//2
+move_y_limit: int = body_height//2
 
 x: int = 250
-y: int = HEIGHT-body_height//2
+y: int = move_y_limit
 
-speed: int = 10
+move_speed: int = 10
+
 is_jump: bool = False
-jump_height: int = 10
+jump_limit: int = 10
+jump_count: int = jump_limit
 
 left: bool = False
 right: bool = False
@@ -37,26 +39,40 @@ while True:
     screen.fill((255, 255, 255))
 
     # character
-    pygame.draw.circle(screen, (255, 0, 0), (x, y), 25, 25)
+    pygame.draw.circle(screen, (255, 0, 0), (x, HEIGHT-y), 25, 25)
 
     # movement
-    if keys[pygame.K_LEFT] and keys[pygame.K_RIGHT]:
+    if keys[pygame.K_a] and keys[pygame.K_d]:
         pass
 
-    elif keys[pygame.K_LEFT] and x > move_x_limit:
-        if x - speed < move_x_limit:
+    elif keys[pygame.K_a] and x > move_x_limit:
+        if x - move_speed < move_x_limit:
             x = move_x_limit
         else:
-            x -= speed
+            x -= move_speed
 
-    elif keys[pygame.K_RIGHT] and x < WIDTH - move_x_limit:
-        if x + speed > WIDTH - move_x_limit:
+    elif keys[pygame.K_d] and x < WIDTH - move_x_limit:
+        if x + move_speed > WIDTH - move_x_limit:
             x = WIDTH - move_x_limit
         else:
-            x += speed
+            x += move_speed
 
 
     # jumps
+    if not is_jump:
+        if keys[pygame.K_SPACE]:
+            is_jump = True
+
+    else:
+        if jump_count >= -jump_limit:
+            if jump_count < 0:
+                y -= (jump_count ** 2) / 2
+            else:
+                y += (jump_count ** 2) / 2
+            jump_count -= 1
+        else:
+            is_jump = False
+            jump_count = jump_limit
 
     # display update
     pygame.display.flip()
