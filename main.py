@@ -1,40 +1,28 @@
 import pygame
+from random import randint
 from models.player import Player
+from models.enemy import Enemy
 
 
 # screen settings
 pygame.init()
-WIDTH, HEIGHT = 1280, 720
+WIDTH, HEIGHT = 1600, 900
 screen = pygame.display.set_mode([WIDTH, HEIGHT])
 
-# character settings
-body_width: int = 50
-body_height: int = 50
-
-move_x_limit: int = body_width//2
-move_y_limit: int = body_height//2
-
-x: int = 250
-y: int = move_y_limit
-
-move_speed: int = 10
-
 is_jump: bool = False
-jump_limit: int = 10
-jump_count: int = jump_limit
-
-left: bool = False
-right: bool = False
+hit: bool = False
 
 # clock
 clock = pygame.time.Clock()
 
 # text
 font_fps = pygame.font.SysFont("timesnewroman", 20)
+font_hit = pygame.font.SysFont("comicsans", 100)
 
 
 # player model
-player = Player(250, 0, 50, 50, 10)
+player = Player(100, 0, 50, 50, 10)
+enemy = Enemy(500, 0, 50, 50, 5, jump_height=8)
 
 
 # main cycle
@@ -50,23 +38,29 @@ while True:
     # movement
     if keys[pygame.K_a] and keys[pygame.K_d]:
         pass
-
     elif keys[pygame.K_a]:
         player.move_left()
-
     elif keys[pygame.K_d]:
         player.move_right(WIDTH)
-
 
     # jumps
     if not is_jump:
         if keys[pygame.K_SPACE] or keys[pygame.K_w]:
             is_jump = True
-
     else:
         if not player.jump():
             is_jump = False
 
+
+    # enemy
+    x, y = player.get_xy()
+    enemy.move(x, y)
+    enemy.blit(screen, HEIGHT)
+    if enemy.is_collided(player.get_rect()):
+        text_fps = font_hit.render(f'HIT!!!', True, (0, 0, 0))
+        screen.blit(text_fps, (randint(25, WIDTH-25), randint(25, HEIGHT-25)))
+
+    # player
     player.blit(screen, HEIGHT)
 
     # display update

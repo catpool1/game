@@ -1,4 +1,3 @@
-import pygame
 from models.entity import Entity
 
 class Player(Entity):
