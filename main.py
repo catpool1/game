@@ -27,6 +27,9 @@ right: bool = False
 # clock
 clock = pygame.time.Clock()
 
+# text
+font_fps = pygame.font.SysFont("timesnewroman", 20)
+
 
 # main cycle
 while True:
@@ -60,7 +63,7 @@ while True:
 
     # jumps
     if not is_jump:
-        if keys[pygame.K_SPACE]:
+        if keys[pygame.K_SPACE] or keys[pygame.K_w]:
             is_jump = True
 
     else:
@@ -75,5 +78,7 @@ while True:
             jump_count = jump_limit
 
     # display update
+    text_fps = font_fps.render(f'FPS: {int(clock.get_fps())}', True, (0, 0, 0))
+    screen.blit(text_fps, (WIDTH - 80, HEIGHT - 20))
     pygame.display.flip()
     clock.tick(60)
