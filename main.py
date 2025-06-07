@@ -22,10 +22,11 @@ font_hit = pygame.font.SysFont("comicsans", 100)
 
 
 # player model
-player = Player(speed_x=6)
+player = Player(speed_x=6, fall_speed=10)
 enemy1 = Enemy()
 
-objects = [Object((500, 40), (80, 10)), Object((600, 100), (80, 10)), Object((0, -10), (2000, 10)), Object((500, 120), (80, 10))]
+objects = [Object((200, 100), (80, 200)), Object((500, 30), (80, 10)),
+           Object((0, -10), (2000, 10))]
 
 
 # main cycle
@@ -40,12 +41,34 @@ while True:
 
 
     # movement
-    if keys[pygame.K_a] and keys[pygame.K_d]:
-        pass
-    elif keys[pygame.K_a]:
-        player.move_left()
-    elif keys[pygame.K_d]:
-        player.move_right(WIDTH)
+    if keys[pygame.K_a]:
+        for obj in objects:
+            if obj.is_collided_right(player.get_xy(), player.get_size()):
+                print('player stopped on right')
+                break
+            elif obj.is_on_left(player.get_speed_x(), player.get_xy(), player.get_size()):
+                player.move_left_to_distance(obj.get_distance_x_left(player.get_xy(), player.get_size()))
+                print('player on right')
+                break
+        else:
+            player.move_left()
+
+    if keys[pygame.K_d]:
+        for obj in objects:
+            if obj.is_collided_left(player.get_xy(), player.get_size()):
+                print('player stopped on left')
+                break
+            elif obj.is_on_right(player.get_speed_x(), player.get_xy(), player.get_size()):
+                player.move_right_to_distance(obj.get_distance_x_right(player.get_xy()))
+                print('player on left')
+                break
+        else:
+            player.move_right(WIDTH)
+
+    # if keys[pygame.K_a] and keys[pygame.K_d]:
+    #     pass
+    # elif keys[pygame.K_d]:
+    #     player.move_right(WIDTH)
 
     # checking if player on object
     for obj in objects:
@@ -55,19 +78,25 @@ while True:
             if not is_jump:
                 if keys[pygame.K_SPACE] or keys[pygame.K_w]:
                     is_jump = True
+                    print('player jumped')
             break
 
         # if fall_speed > distance -> player fall threw
         elif obj.is_under(HEIGHT, player.get_fall_speed(), player.get_xy(), player.get_size()):
-            player.fall(obj.get_distance(player.get_xy()))
-            break
+            if not is_jump:
+                player.fall_to_distance(obj.get_distance_y_up(player.get_xy()))
+                print('player over')
+                break
     else:
-        player.fall()
+        if not is_jump:
+            player.fall()
+            print('player fall')
 
     # continue jumping
     if is_jump:
         if not player.jump():
             is_jump = False
+            print('player out of jump')
 
 
     # enemy

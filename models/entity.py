@@ -35,3 +35,6 @@ class Entity:
 
     def get_fall_speed(self) -> int:
         return self.fall_speed
+
+    def get_speed_x(self) -> int:
+        return self.speed_x

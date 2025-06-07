@@ -15,12 +15,18 @@ class Player(Entity):
             else:
                 self.x += self.speed_x
 
+    def move_right_to_distance(self, distance: int) -> None:
+        self.x += distance
+
     def move_left(self) -> None:
         if self.x > self.width//2:
             if self.x - self.speed_x < self.width//2:
                 self.x = self.width//2
             else:
                 self.x -= self.speed_x
+
+    def move_left_to_distance(self, distance: int) -> None:
+        self.x -= distance
 
     def jump(self) -> bool:
         if self.jump_count >= 0:
@@ -31,12 +37,13 @@ class Player(Entity):
             return False
         return True
 
-    def fall(self, distance: int = 0) -> None:
-        if not distance:
-            if self.fall_count >= -self.fall_speed:
-                self.y -= (self.fall_count ** 2) / 2
-                self.jump_count -= 1
-            else:
-                self.fall_count = 0
-        else:
-            self.y -= distance
+    def fall(self) -> None:
+        self.y -= self.fall_speed
+        # if self.fall_count >= -self.fall_speed:
+        #     self.y -= (self.fall_count ** 2) / 2
+        #     self.jump_count -= 1
+        # else:
+        #     self.fall_count = 0
+
+    def fall_to_distance(self, distance: int) -> None:
+        self.y -= distance
