@@ -2,29 +2,18 @@ import pygame
 from pygame import SurfaceType
 
 
-class Entity:
-    def __init__(self, speed_x: int, jump_height: int, hp: int, pos: tuple, size: tuple, texture: str) -> None:
+class Object:
+    def __init__(self, pos: tuple = (0, 0), size: tuple = (10, 10), texture: str = r'resources\enemy_test.png') -> None:
         self.x = pos[0]
         self.y = pos[1]
-        self.speed_x = speed_x
         self.width = size[0]
         self.height = size[1]
-        self.hp = hp
-        self.jump_height = jump_height
         texture = pygame.image.load(texture)
         self.texture = pygame.transform.scale(texture, (self.width, self.height))
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
         screen.blit(self.texture, (self.x - self.width // 2,
                                  screen_height - self.y - self.height))
-
-    def get_xy(self) -> tuple:
-        return self.x, self.y
-
-    def is_collided(self, screen_height: int, rect: tuple) -> bool:
-        r1 = pygame.Rect(self.x, screen_height - self.y, self.width, self.height)
-        r2 = pygame.Rect(rect)
-        return r1.colliderect(r2)
 
     def get_rect(self, screen_height: int) -> tuple:
         return self.x, screen_height - self.y, self.width, self.height

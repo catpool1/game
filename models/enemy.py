@@ -1,23 +1,30 @@
 from models.entity import Entity
 
 class Enemy(Entity):
-    def __init__(self, x: int, y: int, width: int, height: int, speed_x: int, hp: int = 100, jump_height: int = 10, texture: str = r'resources\enemy_test.png'):
-        super().__init__(x, y, width, height, speed_x, hp, jump_height, texture)
+    def __init__(self, speed_x: int = 5, jump_height: int = 8, hp: int = 100, pos: tuple = (300, 0), size: tuple = (50, 50), texture: str = r'resources\enemy_test.png') -> None:
+        super().__init__(speed_x, jump_height, hp, pos, size, texture)
 
         self.jump_count = self.jump_height
         self.is_jump = False
 
-    def move(self, target_x, target_y):
-        if target_x < self.x:
-            self.x -= self.speed_x
-        elif target_x > self.x:
+    def move(self, target_pos: tuple) -> None:
+        target_x, target_y = target_pos[0], target_pos[1]
+
+        if self.x < target_x:
             self.x += self.speed_x
 
-        if (self.x < target_x) and (self.x + self.speed_x*50 > target_x):
-            if target_y != self.y:
-                self.is_jump = True
+            if self.x + self.speed_x * 50 > target_x:
+                if target_y != self.y:
+                    self.is_jump = True
 
-        elif (self.x > target_x) and (self.x - self.speed_x*50 < target_x):
+        elif self.x > target_x:
+            self.x -= self.speed_x
+
+            if self.x - self.speed_x * 50 < target_x:
+                if target_y != self.y:
+                    self.is_jump = True
+
+        else:
             if target_y != self.y:
                 self.is_jump = True
 
@@ -26,7 +33,7 @@ class Enemy(Entity):
                 self.is_jump = False
 
 
-    def jump(self):
+    def jump(self) -> bool:
         if self.jump_count >= -self.jump_height:
             if self.jump_count < 0:
                 self.y -= (self.jump_count ** 2) / 2
