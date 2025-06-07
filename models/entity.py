@@ -3,10 +3,11 @@ from pygame import SurfaceType
 
 
 class Entity:
-    def __init__(self, speed_x: int, jump_height: int, hp: int, pos: tuple, size: tuple, texture: str) -> None:
+    def __init__(self, speed_x: int, fall_speed: int, jump_height: int, hp: int, pos: tuple, size: tuple, texture: str) -> None:
         self.x = pos[0]
         self.y = pos[1]
         self.speed_x = speed_x
+        self.fall_speed = fall_speed
         self.width = size[0]
         self.height = size[1]
         self.hp = hp
@@ -28,3 +29,9 @@ class Entity:
 
     def get_rect(self, screen_height: int) -> tuple:
         return self.x, screen_height - self.y, self.width, self.height
+
+    def get_size(self) -> tuple:
+        return self.width, self.height
+
+    def get_fall_speed(self) -> int:
+        return self.fall_speed

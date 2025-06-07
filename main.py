@@ -1,5 +1,5 @@
 import pygame
-from random import randint
+# from random import randint
 from models.player import Player
 from models.enemy import Enemy
 from models.object import Object
@@ -22,9 +22,10 @@ font_hit = pygame.font.SysFont("comicsans", 100)
 
 
 # player model
-player = Player()
+player = Player(speed_x=3)
 enemy1 = Enemy()
-object1 = Object((500, 40), (80, 10))
+
+objects = [Object((500, 40), (80, 10)), Object((600, 100), (80, 10)), Object((0, -10), (2000, 10))]
 
 
 # main cycle
@@ -38,22 +39,34 @@ while True:
     screen.fill((255, 255, 255))
 
 
-    if not player.is_collided(HEIGHT, object1.get_rect(HEIGHT)):
-        # movement
-        if keys[pygame.K_a] and keys[pygame.K_d]:
-            pass
-        elif keys[pygame.K_a]:
-            player.move_left()
-        elif keys[pygame.K_d]:
-            player.move_right(WIDTH)
+    # movement
+    if keys[pygame.K_a] and keys[pygame.K_d]:
+        pass
+    elif keys[pygame.K_a]:
+        player.move_left()
+    elif keys[pygame.K_d]:
+        player.move_right(WIDTH)
 
-        # jumps
-        if not is_jump:
-            if keys[pygame.K_SPACE] or keys[pygame.K_w]:
-                is_jump = True
-        else:
-            if not player.jump():
-                is_jump = False
+    for obj in objects:
+        if obj.is_collided_up(HEIGHT, player.get_xy(), player.get_size()):
+
+            # jumps
+            if not is_jump:
+                if keys[pygame.K_SPACE] or keys[pygame.K_w]:
+                    is_jump = True
+            break
+
+        # if fall_speed > distance -> player fall threw
+        elif obj.is_under(HEIGHT, player.get_fall_speed(), player.get_xy(), player.get_size()):
+            player.fall(obj.get_distance(player.get_xy()))
+            break
+    else:
+        player.fall()
+
+    # continue jumping
+    if is_jump:
+        if not player.jump():
+            is_jump = False
 
 
     # enemy
@@ -61,14 +74,15 @@ while True:
     # enemy1.move((x, y))
     # enemy1.blit(screen, HEIGHT)
     # if enemy1.is_collided(HEIGHT, player.get_rect(HEIGHT)):
-    #     text_fps = font_hit.render(f'HIT!!!', True, (0, 0, 255))
+    #     text_fps = font_hit.render('HIT!!!', True, (0, 0, 255))
     #     screen.blit(text_fps, (randint(25, WIDTH-25), randint(25, HEIGHT-25)))
 
     # player
     player.blit(screen, HEIGHT)
 
     # objects
-    object1.blit(screen, HEIGHT)
+    for obj in objects:
+        obj.blit(screen, HEIGHT)
 
     # display update
     text_fps = font_fps.render(f'FPS: {int(clock.get_fps())}', True, (0, 0, 0))
