@@ -6,6 +6,7 @@ class Player(Entity):
         super().__init__(speed_x, fall_speed, jump_height, hp, pos, size, texture)
 
         self.jump_count = jump_height
+        self.fall_count = 0
 
     def move_right(self, screen_width: int) -> None:
         if self.x < screen_width - self.width//2:
@@ -23,8 +24,7 @@ class Player(Entity):
 
     def jump(self) -> bool:
         if self.jump_count >= 0:
-            if self.jump_count > 0:
-                self.y += (self.jump_count ** 2) / 2
+            self.y += (self.jump_count ** 2) / 2
             self.jump_count -= 1
         else:
             self.jump_count = self.jump_height
@@ -33,6 +33,10 @@ class Player(Entity):
 
     def fall(self, distance: int = 0) -> None:
         if not distance:
-            self.y -= self.fall_speed
+            if self.fall_count >= -self.fall_speed:
+                self.y -= (self.fall_count ** 2) / 2
+                self.jump_count -= 1
+            else:
+                self.fall_count = 0
         else:
             self.y -= distance

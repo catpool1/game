@@ -16,7 +16,7 @@ class Entity:
         self.texture = pygame.transform.scale(texture, (self.width, self.height))
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
-        screen.blit(self.texture, (self.x - self.width // 2,
+        screen.blit(self.texture, (self.x,
                                  screen_height - self.y - self.height))
 
     def get_xy(self) -> tuple:

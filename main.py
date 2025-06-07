@@ -22,10 +22,10 @@ font_hit = pygame.font.SysFont("comicsans", 100)
 
 
 # player model
-player = Player(speed_x=3)
+player = Player(speed_x=6)
 enemy1 = Enemy()
 
-objects = [Object((500, 40), (80, 10)), Object((600, 100), (80, 10)), Object((0, -10), (2000, 10))]
+objects = [Object((500, 40), (80, 10)), Object((600, 100), (80, 10)), Object((0, -10), (2000, 10)), Object((500, 120), (80, 10))]
 
 
 # main cycle
@@ -47,6 +47,7 @@ while True:
     elif keys[pygame.K_d]:
         player.move_right(WIDTH)
 
+    # checking if player on object
     for obj in objects:
         if obj.is_collided_up(HEIGHT, player.get_xy(), player.get_size()):
 
