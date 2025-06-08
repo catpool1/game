@@ -8,25 +8,18 @@ class Player(Entity):
         self.jump_count = jump_height
         self.fall_count = 0
 
-    def move_right(self, screen_width: int) -> None:
-        if self.x < screen_width - self.width//2:
-            if self.x + self.speed_x > screen_width - self.width//2:
-                self.x = screen_width - self.width//2
-            else:
-                self.x += self.speed_x
+    def move_right(self, on_distance: bool = False, distance: int = 0) -> None:
+        if not on_distance:
+            self.x += self.speed_x
+        else:
+            self.x += distance
 
-    def move_right_to_distance(self, distance: int) -> None:
-        self.x += distance
+    def move_left(self, on_distance: bool = False, distance: int = 0) -> None:
+        if not on_distance:
+            self.x -= self.speed_x
+        else:
+            self.x -= distance
 
-    def move_left(self) -> None:
-        if self.x > self.width//2:
-            if self.x - self.speed_x < self.width//2:
-                self.x = self.width//2
-            else:
-                self.x -= self.speed_x
-
-    def move_left_to_distance(self, distance: int) -> None:
-        self.x -= distance
 
     def jump(self) -> bool:
         if self.jump_count >= 0:
