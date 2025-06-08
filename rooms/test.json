@@ -1,4 +1,19 @@
 {
+    "player": {
+        "speed_x": 6,
+        "fall_speed": 10,
+        "jump_height": 10,
+        "hp": 100,
+        "pos": [
+            50,
+            0
+        ],
+        "size": [
+            50,
+            50
+        ],
+        "texture_name": "player_test"
+    },
     "objects": [
         {
             "pos": [

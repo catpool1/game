@@ -33,6 +33,7 @@ objects = [Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
            Object((0, -10), (2000, 10))]
 
 # test = {}
+# test['player'] = player.get_info()
 # test['objects'] = []
 # for obj in objects:
 #     test['objects'].append(obj.get_info())
@@ -48,7 +49,7 @@ while True:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_c]:
-        print(player.get_xy())
+        print(player.get_info())
 
     # background
     screen.fill((255, 255, 255))
@@ -57,7 +58,7 @@ while True:
     # movement
     if keys[pygame.K_a]:
         for obj in objects:
-            if obj.is_on_left(player.get_speed_x(), player.get_xy(), player.get_size()):
+            if obj.is_on_left(player.get_info()['speed_x'], player.get_xy(), player.get_size()):
                 player.move_left(True, obj.get_distance_left(player.get_xy()))
                 break
         else:
@@ -65,7 +66,7 @@ while True:
 
     if keys[pygame.K_d]:
         for obj in objects:
-            if obj.is_on_right(player.get_speed_x(), player.get_xy(), player.get_size()):
+            if obj.is_on_right(player.get_info()['speed_x'], player.get_xy(), player.get_size()):
                 player.move_right(True, obj.get_distance_right(player.get_xy(), player.get_size()))
                 break
         else:
@@ -73,7 +74,7 @@ while True:
 
     # checking if player on object
     for obj in objects:
-        if obj.is_under(HEIGHT, player.get_fall_speed(), player.get_xy(), player.get_size()):
+        if obj.is_under(HEIGHT, player.get_info()['fall_speed'], player.get_xy(), player.get_size()):
             # jumps
             if not is_jump:
                 if keys[pygame.K_SPACE] or keys[pygame.K_w]:

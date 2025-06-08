@@ -2,8 +2,8 @@ from models.entity import Entity
 
 class Player(Entity):
     def __init__(self, speed_x: int = 10, fall_speed: int = 7, jump_height: int = 10, hp: int = 100,
-                 pos: tuple = (50, 0), size: tuple = (50, 50), texture: str = 'player_test') -> None:
-        super().__init__(speed_x, fall_speed, jump_height, hp, pos, size, texture)
+                 pos: tuple = (50, 0), size: tuple = (50, 50), texture_name: str = 'player_test') -> None:
+        super().__init__(speed_x, fall_speed, jump_height, hp, pos, size, texture_name)
 
         self.jump_count = jump_height
         self.fall_count = 0
