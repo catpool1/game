@@ -23,13 +23,13 @@ class Object:
         return {'pos': (self.x, self.y), 'size': (self.width, self.height), 'texture': self.texture_name}
 
 
-    def is_under(self, screen_height: int, target_fall_speed: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_under(self, screen_height: int, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
         if (self.x + self.width >= target_x >= self.x) or (self.x <= target_x + target_width <= self.x + self.width):
             if screen_height - target_y <= screen_height - self.y - self.height:
-                if screen_height - target_y + target_fall_speed >= screen_height - self.y - self.height:
+                if screen_height - target_y + (target_fall_count**2)/2 >= screen_height - self.y - self.height:
                     return True
         return False
 
@@ -38,13 +38,13 @@ class Object:
         return target_y - (self.y + self.height) - 1
 
 
-    def is_on_right(self, target_speed: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_on_right(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
         if not ((target_y > self.y + self.height) or (target_y + target_height < self.y)):
             if target_x + target_width <= self.x:
-                if target_x + target_width + target_speed > self.x:
+                if target_x + target_width + (target_move_count**1.1)/2 > self.x:
                     return True
         return False
 
@@ -54,13 +54,13 @@ class Object:
         return self.x - target_x - target_width - 1
 
 
-    def is_on_left(self, target_speed: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_on_left(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
         if not ((target_y > self.y + self.height) or (target_y + target_height < self.y)):
             if target_x >= self.x + self.width:
-                if target_x - target_speed <= self.x + self.width:
+                if target_x - (target_move_count**1.1)/2 <= self.x + self.width:
                     return True
         return False
 

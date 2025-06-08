@@ -13,6 +13,8 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 is_jump: bool = False
 hit: bool = False
 
+last_move = ''
+
 # clock
 clock = pygame.time.Clock()
 
@@ -21,16 +23,16 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
 # player model
-player = Player(speed_x=6, fall_speed=10)
+player = Player()
 # enemy1 = Enemy()
 
-objects = [Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
+objects = [Object((1000, 610), (80, 60)), Object((500, 100), (80, 60)),
            Object((600, 200), (80, 60)), Object((700, 300), (80, 60)),
            Object((800, 400), (80, 60)), Object((900, 500), (80, 60)),
-           Object((1100, 700), (80, 60)), Object((1200, 800), (80, 60)),
-           Object((1300, 800), (80, 60)), Object((200, 0), (80, 60)),
+           Object((1100, 700), (80, 60)), Object((1200, 570), (80, 60)),
+           Object((1300, 570), (80, 60)), Object((200, 0), (80, 100)),
            Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
-           Object((0, -10), (2000, 10))]
+           Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
 
 # test = {}
 # test['player'] = player.get_info()
@@ -49,32 +51,50 @@ while True:
     keys = pygame.key.get_pressed()
 
     if keys[pygame.K_c]:
-        print(player.get_info())
+        print(player.get_xy())
 
     # background
     screen.fill((255, 255, 255))
 
 
     # movement
-    if keys[pygame.K_a]:
+    if keys[pygame.K_a] and keys[pygame.K_d]:
+        last_move = ''
+        player.move_speed_zeroing()
+
+    elif keys[pygame.K_a]:
+        if last_move != 'left':
+            player.move_speed_zeroing()
+            last_move = 'left'
+
         for obj in objects:
-            if obj.is_on_left(player.get_info()['speed_x'], player.get_xy(), player.get_size()):
+            if obj.is_on_left(player.get_move_count(), player.get_xy(), player.get_size()):
                 player.move_left(True, obj.get_distance_left(player.get_xy()))
                 break
         else:
             player.move_left()
 
-    if keys[pygame.K_d]:
+    elif keys[pygame.K_d]:
+        if last_move != 'right':
+            player.move_speed_zeroing()
+            last_move = 'right'
+
         for obj in objects:
-            if obj.is_on_right(player.get_info()['speed_x'], player.get_xy(), player.get_size()):
+            if obj.is_on_right(player.get_move_count(), player.get_xy(), player.get_size()):
                 player.move_right(True, obj.get_distance_right(player.get_xy(), player.get_size()))
                 break
         else:
             player.move_right()
 
-    # checking if player on object
+    else:
+        last_move = ''
+
+
+    # jump and fall
     for obj in objects:
         if obj.is_under(HEIGHT, player.get_info()['fall_speed'], player.get_xy(), player.get_size()):
+            player.fall_speed_zeroing()
+
             # jumps
             if not is_jump:
                 if keys[pygame.K_SPACE] or keys[pygame.K_w]:
@@ -87,7 +107,6 @@ while True:
             if obj.is_upper(HEIGHT, player.get_jump_count(), player.get_xy(), player.get_size()):
                 player.jump(True, obj.get_distance_down(player.get_xy(), player.get_size()))
                 is_jump = False
-                print('under')
     else:
         if not is_jump:
             player.fall()
