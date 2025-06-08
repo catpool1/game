@@ -22,7 +22,7 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 # player model
 player = Player(speed_x=6, fall_speed=10)
-enemy1 = Enemy()
+# enemy1 = Enemy()
 
 objects = [Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
            Object((600, 200), (80, 60)), Object((700, 300), (80, 60)),
@@ -82,6 +82,12 @@ while True:
 
                 player.fall(True, obj.get_distance_up(player.get_xy()))
             break
+
+        if is_jump:
+            if obj.is_upper(HEIGHT, player.get_jump_count(), player.get_xy(), player.get_size()):
+                player.jump(True, obj.get_distance_down(player.get_xy(), player.get_size()))
+                is_jump = False
+                print('under')
     else:
         if not is_jump:
             player.fall()

@@ -21,17 +21,25 @@ class Player(Entity):
             self.x -= distance
 
 
-    def jump(self) -> bool:
-        if self.jump_count >= 0:
-            self.y += (self.jump_count ** 2) / 2
-            self.jump_count -= 1
+    def jump(self, on_distance: bool = False, distance: int = 0) -> bool:
+        if not on_distance:
+            if self.jump_count >= 0:
+                self.y += (self.jump_count ** 2) / 2
+                self.jump_count -= 1
+            else:
+                self.jump_count = self.jump_height
+                return False
+            return True
         else:
+            self.y += distance
             self.jump_count = self.jump_height
             return False
-        return True
 
     def fall(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
             self.y -= self.fall_speed
         else:
             self.y -= distance
+
+    def get_jump_count(self) -> int:
+        return self.jump_count

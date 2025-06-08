@@ -67,3 +67,19 @@ class Object:
     def get_distance_left(self, target_pos: tuple) -> int:
         target_x = target_pos[0]
         return target_x - (self.x + self.width) - 1
+
+
+    def is_upper(self, screen_height: int, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool:
+        target_x, target_y = target_pos[0], target_pos[1]
+        target_width, target_height = target_size[0], target_size[1]
+
+        if (self.x + self.width >= target_x >= self.x) or (self.x <= target_x + target_width <= self.x + self.width):
+            if screen_height - target_y >= screen_height - self.y - self.height:
+                if screen_height - target_y - target_height - (target_jump_count**2)/2 <= screen_height - self.y:
+                    return True
+        return False
+
+    def get_distance_down(self, target_pos: tuple, target_size: tuple) -> int:
+        target_y = target_pos[1]
+        target_height = target_size[1]
+        return self.y - target_y - target_height - 1
