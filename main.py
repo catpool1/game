@@ -47,7 +47,6 @@ while True:
         for obj in objects:
             if obj.is_on_left(player.get_speed_x(), player.get_xy(), player.get_size()):
                 player.move_left(True, obj.get_distance_left(player.get_xy()))
-                print('object on left')
                 break
         else:
             player.move_left()
@@ -56,7 +55,6 @@ while True:
         for obj in objects:
             if obj.is_on_right(player.get_speed_x(), player.get_xy(), player.get_size()):
                 player.move_right(True, obj.get_distance_right(player.get_xy(), player.get_size()))
-                print('object on right')
                 break
         else:
             player.move_right()
@@ -68,10 +66,8 @@ while True:
             if not is_jump:
                 if keys[pygame.K_SPACE] or keys[pygame.K_w]:
                     is_jump = True
-                    print('player jumped')
 
-                player.fall_to_distance(obj.get_distance_up(player.get_xy()))
-                print('player over object')
+                player.fall(True, obj.get_distance_up(player.get_xy()))
             break
     else:
         if not is_jump:
@@ -81,7 +77,6 @@ while True:
     if is_jump:
         if not player.jump():
             is_jump = False
-            print('player out of jump')
 
 
     # enemy

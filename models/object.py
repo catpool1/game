@@ -3,12 +3,12 @@ from pygame import SurfaceType
 
 
 class Object:
-    def __init__(self, pos: tuple = (0, 0), size: tuple = (10, 10), texture: str = r'resources\enemy_test.png') -> None:
+    def __init__(self, pos: tuple = (0, 0), size: tuple = (10, 10), texture: str = 'object_standard') -> None:
         self.x = pos[0]
         self.y = pos[1]
         self.width = size[0]
         self.height = size[1]
-        texture = pygame.image.load(texture)
+        texture = pygame.image.load(f'resources/{texture}.png')
         self.texture = pygame.transform.scale(texture, (self.width, self.height))
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:

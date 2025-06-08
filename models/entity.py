@@ -12,7 +12,7 @@ class Entity:
         self.height = size[1]
         self.hp = hp
         self.jump_height = jump_height
-        texture = pygame.image.load(texture)
+        texture = pygame.image.load(f'resources/{texture}.png')
         self.texture = pygame.transform.scale(texture, (self.width, self.height))
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:

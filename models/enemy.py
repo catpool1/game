@@ -2,7 +2,7 @@ from models.entity import Entity
 
 class Enemy(Entity):
     def __init__(self, speed_x: int = 5, fall_speed: int = 10, jump_height: int = 8, hp: int = 100,
-                 pos: tuple = (300, 0), size: tuple = (50, 50), texture: str = r'resources\enemy_test.png') -> None:
+                 pos: tuple = (300, 0), size: tuple = (50, 50), texture: str = 'enemy_test') -> None:
         super().__init__(speed_x, fall_speed, jump_height, hp, pos, size, texture)
 
         self.jump_count = self.jump_height
