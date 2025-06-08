@@ -1,0 +1,147 @@
+{
+    "objects": [
+        {
+            "pos": [
+                1000,
+                600
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                500,
+                100
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                600,
+                200
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                700,
+                300
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                800,
+                400
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                900,
+                500
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1100,
+                700
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1200,
+                800
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1300,
+                800
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                200,
+                0
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                -10,
+                0
+            ],
+            "size": [
+                10,
+                900
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1600,
+                0
+            ],
+            "size": [
+                10,
+                900
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                0,
+                -10
+            ],
+            "size": [
+                2000,
+                10
+            ],
+            "texture": "object_standard"
+        }
+    ]
+}

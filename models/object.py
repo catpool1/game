@@ -8,6 +8,7 @@ class Object:
         self.y = pos[1]
         self.width = size[0]
         self.height = size[1]
+        self.texture_name = texture
         texture = pygame.image.load(f'resources/{texture}.png')
         self.texture = pygame.transform.scale(texture, (self.width, self.height))
 
@@ -18,15 +19,9 @@ class Object:
     def get_rect(self, screen_height: int) -> tuple:
         return self.x, screen_height - self.y, self.width, self.height
 
+    def get_info(self) -> dict:
+        return {'pos': (self.x, self.y), 'size': (self.width, self.height), 'texture': self.texture_name}
 
-    def is_collided_up(self, screen_height: int, target_pos: tuple, target_size: tuple) -> bool:
-        target_x, target_y = target_pos[0], target_pos[1]
-        target_width, target_height = target_size[0], target_size[1]
-
-        if (self.x + self.width >= target_x >= self.x) or (self.x <= target_x + target_width <= self.x + self.width):
-            if screen_height - target_y == screen_height - self.y - self.height:
-                return True
-        return False
 
     def is_under(self, screen_height: int, target_fall_speed: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
@@ -40,7 +35,7 @@ class Object:
 
     def get_distance_up(self, target_pos: tuple) -> int:
         target_y = target_pos[1]
-        return target_y - (self.y + self.height)
+        return target_y - (self.y + self.height) - 1
 
 
     def is_on_right(self, target_speed: int, target_pos: tuple, target_size: tuple) -> bool:
@@ -56,7 +51,7 @@ class Object:
     def get_distance_right(self, target_pos: tuple, target_size: tuple) -> int:
         target_x = target_pos[0]
         target_width = target_size[0]
-        return self.x - target_x - target_width
+        return self.x - target_x - target_width - 1
 
 
     def is_on_left(self, target_speed: int, target_pos: tuple, target_size: tuple) -> bool:
@@ -71,4 +66,4 @@ class Object:
 
     def get_distance_left(self, target_pos: tuple) -> int:
         target_x = target_pos[0]
-        return target_x - (self.x + self.width)
+        return target_x - (self.x + self.width) - 1

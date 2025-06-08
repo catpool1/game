@@ -1,4 +1,5 @@
 import pygame
+import json
 from models.player import Player
 from models.enemy import Enemy
 from models.object import Object
@@ -17,19 +18,27 @@ clock = pygame.time.Clock()
 
 # text
 font_fps = pygame.font.SysFont("timesnewroman", 20)
-font_hit = pygame.font.SysFont("comicsans", 100)
 
 
 # player model
 player = Player(speed_x=6, fall_speed=10)
 enemy1 = Enemy()
 
-objects = [Object((204, 0), (80, 100)), Object((500, 60), (80, 60)),
-           Object((600, 130), (80, 160)), Object((700, 330), (80, 140)),
-           Object((800, 330), (80, 160)), Object((900, 430), (80, 160)),
+objects = [Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
+           Object((600, 200), (80, 60)), Object((700, 300), (80, 60)),
+           Object((800, 400), (80, 60)), Object((900, 500), (80, 60)),
+           Object((1100, 700), (80, 60)), Object((1200, 800), (80, 60)),
+           Object((1300, 800), (80, 60)), Object((200, 0), (80, 60)),
            Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
            Object((0, -10), (2000, 10))]
 
+# test = {}
+# test['objects'] = []
+# for obj in objects:
+#     test['objects'].append(obj.get_info())
+#
+# with open('rooms/test.json', 'r+') as f:
+#     json.dump(test, f, indent=4)
 
 # main cycle
 while True:
@@ -37,6 +46,9 @@ while True:
         if e.type == pygame.QUIT:
             exit()
     keys = pygame.key.get_pressed()
+
+    if keys[pygame.K_c]:
+        print(player.get_xy())
 
     # background
     screen.fill((255, 255, 255))
@@ -80,8 +92,7 @@ while True:
 
 
     # enemy
-    # x, y = player.get_xy()
-    # enemy1.move((x, y))
+    # enemy1.move(player.get_xy())
     # enemy1.blit(screen, HEIGHT)
     # if enemy1.is_collided(HEIGHT, player.get_rect(HEIGHT)):
     #     print('player damaged')

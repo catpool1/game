@@ -1,5 +1,4 @@
 from models.entity import Entity
-from datetime import datetime
 
 class Player(Entity):
     def __init__(self, speed_x: int = 10, fall_speed: int = 7, jump_height: int = 10, hp: int = 100,
