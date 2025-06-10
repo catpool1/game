@@ -12,6 +12,7 @@ class Object:
         texture = pygame.image.load(f'resources/{texture}.png')
         self._texture = pygame.transform.scale(texture, (self._width, self._height))
 
+
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
         screen.blit(self._texture, (self._x,
                                     screen_height - self._y - self._height))

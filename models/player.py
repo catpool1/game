@@ -14,15 +14,15 @@ class Player(Entity):
     def move(self, screen_height: int, keys: tuple, objects: list) -> None:
         if keys[pygame.K_a] and keys[pygame.K_d]:
             self.__last_move = ''
-            self.move_count = 2
+            self._move_count = 2
 
         elif keys[pygame.K_a]:
             if self.__last_move != 'left':
-                self.move_count = 2
+                self._move_count = 2
                 self.__last_move = 'left'
 
             for obj in objects:
-                if obj.is_on_left(self.move_count, (self._x, self._y), (self._width, self._height)):
+                if obj.is_on_left(self._move_count, (self._x, self._y), (self._width, self._height)):
                     self._move_left(True, obj.get_distance_left((self._x, self._y)))
                     break
             else:
@@ -30,11 +30,11 @@ class Player(Entity):
 
         elif keys[pygame.K_d]:
             if self.__last_move != 'right':
-                self.move_count = 2
+                self._move_count = 2
                 self.__last_move = 'right'
 
             for obj in objects:
-                if obj.is_on_right(self.move_count, (self._x, self._y), (self._width, self._height)):
+                if obj.is_on_right(self._move_count, (self._x, self._y), (self._width, self._height)):
                     self._move_right(True, obj.get_distance_right((self._x, self._y), (self._width, self._height)))
                     break
             else:
@@ -45,8 +45,8 @@ class Player(Entity):
 
 
         for obj in objects:
-            if obj.is_under(screen_height, self.fall_count, (self._x, self._y), (self._width, self._height)):
-                self.fall_count = 0
+            if obj.is_under(screen_height, self._fall_count, (self._x, self._y), (self._width, self._height)):
+                self._fall_count = 0
 
                 # jumps
                 if not self.__is_jump:
@@ -58,7 +58,7 @@ class Player(Entity):
                 break
 
             if self.__is_jump:
-                if obj.is_upper(screen_height, self.__jump_count, (self._x, self._y), (self._width, self._height)):
+                if obj.is_upper(screen_height, self._jump_count, (self._x, self._y), (self._width, self._height)):
                     self._jump(True, obj.get_distance_down((self._x, self._y), (self._width, self._height)))
                     self.__is_jump = False
         else:

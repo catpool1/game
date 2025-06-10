@@ -16,9 +16,9 @@ class Entity:
         texture = pygame.image.load(f'resources/{texture_name}.png')
         self._texture = pygame.transform.scale(texture, (self._width, self._height))
 
-        self.__jump_count = jump_height
-        self.fall_count = 0
-        self.move_count = 2
+        self._jump_count = jump_height
+        self._fall_count = 0
+        self._move_count = 2
 
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
@@ -49,39 +49,39 @@ class Entity:
 
     def _move_right(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
-            if self.move_count < self._speed_x:
-                self.move_count += 1
-            self._x += round((self.move_count ** 1.1) / 2)
+            if self._move_count < self._speed_x:
+                self._move_count += 1
+            self._x += round((self._move_count ** 1.1) / 2)
         else:
             self._x += distance
 
     def _move_left(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
-            if self.move_count < self._speed_x:
-                self.move_count += 1
-            self._x -= round((self.move_count ** 1.1) / 2)
+            if self._move_count < self._speed_x:
+                self._move_count += 1
+            self._x -= round((self._move_count ** 1.1) / 2)
         else:
             self._x -= distance
 
 
     def _jump(self, on_distance: bool = False, distance: int = 0) -> bool:
         if not on_distance:
-            if self.__jump_count >= 0:
-                self._y += (self.__jump_count ** 2) / 2
-                self.__jump_count -= 1
+            if self._jump_count >= 0:
+                self._y += (self._jump_count ** 2) / 2
+                self._jump_count -= 1
             else:
-                self.__jump_count = self._jump_height
+                self._jump_count = self._jump_height
                 return False
             return True
         else:
             self._y += distance
-            self.__jump_count = self._jump_height
+            self._jump_count = self._jump_height
             return False
 
     def _fall(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
-            if self.fall_count < self._fall_speed:
-                self.fall_count += 1
-            self._y -= (self.fall_count ** 2) / 2
+            if self._fall_count < self._fall_speed:
+                self._fall_count += 1
+            self._y -= (self._fall_count ** 2) / 2
         else:
             self._y -= distance

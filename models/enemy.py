@@ -5,7 +5,6 @@ class Enemy(Entity):
                  pos: tuple = (300, 0), size: tuple = (50, 50), texture_name: str = 'enemy_test') -> None:
         super().__init__(speed_x, fall_speed, jump_height, hp, pos, size, texture_name)
 
-        self.__jump_count = self._jump_height
         self.__is_jump = False
 
     def move(self, target_pos: tuple) -> None:
