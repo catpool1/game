@@ -1,5 +1,5 @@
 import pygame
-import json
+# import json
 from models.player import Player
 # from models.enemy import Enemy
 from models.object import Object
@@ -12,6 +12,7 @@ screen = pygame.display.set_mode([WIDTH, HEIGHT])
 
 is_jump: bool = False
 hit: bool = False
+jump_pause: bool = True
 
 last_move = ''
 
@@ -100,6 +101,7 @@ while True:
             if not is_jump:
                 if keys[pygame.K_SPACE] or keys[pygame.K_w]:
                     is_jump = True
+                    jump_pause = True
 
                 player.fall(True, obj.get_distance_up(player.get_xy()))
             break
@@ -111,11 +113,14 @@ while True:
     else:
         if not is_jump:
             player.fall()
+            jump_pause = True
 
     # continue jumping
-    if is_jump:
+    if is_jump and not jump_pause:
         if not player.jump():
             is_jump = False
+
+    jump_pause = False
 
 
     # player

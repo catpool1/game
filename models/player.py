@@ -17,11 +17,6 @@ class Player(Entity):
         else:
             self.x += distance
 
-        print('--------')
-        print('move_right', self.move_count, (self.move_count**1.1) / 2, distance)
-        print(self.x, self.y)
-        print('--------')
-
     def move_left(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
             if self.move_count < self.speed_x:
@@ -29,14 +24,6 @@ class Player(Entity):
             self.x -= round((self.move_count**1.1) / 2)
         else:
             self.x -= distance
-
-        print('--------')
-        print('move_left', self.move_count, (self.move_count ** 1.1) / 2, distance)
-        print(self.x, self.y)
-        print('--------')
-
-    def move_speed_zeroing(self):
-        self.move_count = 2
 
 
     def jump(self, on_distance: bool = False, distance: int = 0) -> bool:
@@ -63,6 +50,9 @@ class Player(Entity):
 
     def fall_speed_zeroing(self):
         self.fall_count = 0
+
+    def move_speed_zeroing(self):
+        self.move_count = 2
 
     def get_jump_count(self) -> int:
         return self.jump_count
