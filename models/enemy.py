@@ -5,43 +5,30 @@ class Enemy(Entity):
                  pos: tuple = (300, 0), size: tuple = (50, 50), texture_name: str = 'enemy_test') -> None:
         super().__init__(speed_x, fall_speed, jump_height, hp, pos, size, texture_name)
 
-        self.jump_count = self.jump_height
-        self.is_jump = False
+        self.__jump_count = self._jump_height
+        self.__is_jump = False
 
     def move(self, target_pos: tuple) -> None:
         target_x, target_y = target_pos[0], target_pos[1]
 
-        if self.x < target_x:
-            self.x += self.speed_x
+        if self._x < target_x:
+            self._x += self._speed_x
 
-            if self.x + self.speed_x * 50 > target_x:
-                if target_y != self.y:
-                    self.is_jump = True
+            if self._x + self._speed_x * 50 > target_x:
+                if target_y != self._y:
+                    self.__is_jump = True
 
-        elif self.x > target_x:
-            self.x -= self.speed_x
+        elif self._x > target_x:
+            self._x -= self._speed_x
 
-            if self.x - self.speed_x * 50 < target_x:
-                if target_y != self.y:
-                    self.is_jump = True
+            if self._x - self._speed_x * 50 < target_x:
+                if target_y != self._y:
+                    self.__is_jump = True
 
         else:
-            if target_y != self.y:
-                self.is_jump = True
+            if target_y != self._y:
+                self.__is_jump = True
 
-        if self.is_jump:
-            if not self.jump():
-                self.is_jump = False
-
-
-    def jump(self) -> bool:
-        if self.jump_count >= -self.jump_height:
-            if self.jump_count < 0:
-                self.y -= (self.jump_count ** 2) / 2
-            else:
-                self.y += (self.jump_count ** 2) / 2
-            self.jump_count -= 1
-        else:
-            self.jump_count = self.jump_height
-            return False
-        return True
+        if self.__is_jump:
+            if not self._jump():
+                self.__is_jump = False
