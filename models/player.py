@@ -13,17 +13,27 @@ class Player(Entity):
         if not on_distance:
             if self.move_count < self.speed_x:
                 self.move_count += 1
-            self.x += (self.move_count**1.1) / 2
+            self.x += round((self.move_count**1.1) / 2)
         else:
             self.x += distance
+
+        print('--------')
+        print('move_right', self.move_count, (self.move_count**1.1) / 2, distance)
+        print(self.x, self.y)
+        print('--------')
 
     def move_left(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
             if self.move_count < self.speed_x:
                 self.move_count += 1
-            self.x -= (self.move_count**1.1) / 2
+            self.x -= round((self.move_count**1.1) / 2)
         else:
             self.x -= distance
+
+        print('--------')
+        print('move_left', self.move_count, (self.move_count ** 1.1) / 2, distance)
+        print(self.x, self.y)
+        print('--------')
 
     def move_speed_zeroing(self):
         self.move_count = 2

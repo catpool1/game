@@ -1,7 +1,7 @@
 import pygame
 import json
 from models.player import Player
-from models.enemy import Enemy
+# from models.enemy import Enemy
 from models.object import Object
 
 
@@ -24,13 +24,14 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 # player model
 player = Player()
-# enemy1 = Enemy()
 
 objects = [Object((1000, 610), (80, 60)), Object((500, 100), (80, 60)),
            Object((600, 200), (80, 60)), Object((700, 300), (80, 60)),
            Object((800, 400), (80, 60)), Object((900, 500), (80, 60)),
            Object((1100, 700), (80, 60)), Object((1200, 570), (80, 60)),
            Object((1300, 570), (80, 60)), Object((200, 0), (80, 100)),
+           Object((1100, 50), (80, 60)), Object((1200, 50), (80, 60)),
+           Object((700, 0), (80, 60)), Object((700, 70), (80, 60)),
            Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
            Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
 
@@ -116,12 +117,6 @@ while True:
         if not player.jump():
             is_jump = False
 
-
-    # enemy
-    # enemy1.move(player.get_xy())
-    # enemy1.blit(screen, HEIGHT)
-    # if enemy1.is_collided(HEIGHT, player.get_rect(HEIGHT)):
-    #     print('player damaged')
 
     # player
     player.blit(screen, HEIGHT)
