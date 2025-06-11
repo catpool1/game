@@ -84,3 +84,19 @@ class Object:
         target_y = target_pos[1]
         target_height = target_size[1]
         return self._y - target_y - target_height
+
+
+    def is_on_left_edge(self, target_move_count: int, target_pos: tuple) -> bool:
+        target_x, target_y = target_pos[0], target_pos[1]
+        if target_y == self._y + self._height:
+            if target_x - (target_move_count**1.1)/2 <= self._x:
+                return True
+        return False
+
+    def is_on_right_edge(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
+        target_x, target_y = target_pos[0], target_pos[1]
+        target_width = target_size[0]
+        if target_y == self._y + self._height:
+            if target_x + target_width + round((target_move_count**1.1)/2) >= self._x + self._width:
+                return True
+        return False

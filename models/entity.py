@@ -18,7 +18,7 @@ class Entity:
 
         self._jump_count = jump_height
         self._fall_count = 0
-        self._move_count = 2
+        self._move_count = 2 * (self._speed_x != 0)
 
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
@@ -74,6 +74,7 @@ class Entity:
                 return False
             return True
         else:
+            # print(distance, self._y, self._jump_count, (self._jump_count ** 2) / 2)
             self._y += distance
             self._jump_count = self._jump_height
             return False
@@ -85,3 +86,8 @@ class Entity:
             self._y -= (self._fall_count ** 2) / 2
         else:
             self._y -= distance
+
+
+    def tp(self, pos: tuple) -> None:
+        self._x = pos[0]
+        self._y = pos[1]

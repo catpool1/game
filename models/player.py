@@ -14,7 +14,7 @@ class Player(Entity):
     def move(self, screen_height: int, keys: tuple, objects: list) -> None:
         if keys[pygame.K_a] and keys[pygame.K_d]:
             self.__last_move = ''
-            self._move_count = 2
+            self._move_count = 2 * (self._speed_x != 0)
 
         elif keys[pygame.K_a]:
             if self.__last_move != 'left':
@@ -30,7 +30,7 @@ class Player(Entity):
 
         elif keys[pygame.K_d]:
             if self.__last_move != 'right':
-                self._move_count = 2
+                self._move_count = 2 * (self._speed_x != 0)
                 self.__last_move = 'right'
 
             for obj in objects:

@@ -1,7 +1,7 @@
 import pygame
 # import json
 from models.player import Player
-# from models.enemy import Enemy
+from models.enemy import Enemy
 from models.object import Object
 
 
@@ -24,15 +24,23 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
 # player model
-player = Player()
+player = Player() # 10 -> 192 jump height
+enemies = [Enemy(pos=(780, 580)), Enemy(pos=(700, 340), speed_x=4),
+           Enemy(pos=(1100, 0), direction='left'), Enemy(pos=(1300, 0), speed_x=6),
+           Enemy(pos=(1315, 630), speed_x=0)]
 
-objects = [Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
-           Object((600, 200), (80, 60)), Object((700, 300), (80, 60)),
-           Object((800, 400), (80, 60)), Object((900, 500), (80, 60)),
+# fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180
+# jump threw collisions on some pixels: 360 -> 440
+
+objects = [Object((100, 170), (80, 22)),
+           Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
+           Object((600, 200), (80, 60)), Object((700, 300), (180, 40)),
+           Object((600, 440), (80, 60)), Object((780, 550), (200, 30)),
            Object((1100, 700), (80, 60)), Object((1200, 570), (80, 60)),
-           Object((1300, 570), (80, 60)), Object((200, 0), (80, 100)),
+           Object((1300, 570), (80, 60)), Object((870, 330), (40, 40)),
            Object((1100, 50), (80, 60)), Object((1200, 50), (80, 60)),
            Object((700, 0), (80, 60)), Object((700, 70), (80, 60)),
+           Object((1400, 400), (200, 30)),
            Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
            Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
 
@@ -54,6 +62,10 @@ while True:
 
     if keys[pygame.K_c]:
         print(player.get_xy())
+    if keys[pygame.K_x]:
+        player.tp((1200, 700))
+    if keys[pygame.K_ESCAPE]:
+        exit()
 
     # background
     screen.fill((255, 255, 255))
@@ -61,9 +73,14 @@ while True:
 
     # player
     player.blit(screen, HEIGHT)
-
-    # player movement
     player.move(HEIGHT, keys, objects)
+
+    # enemies
+    for en in enemies:
+        en.blit(screen, HEIGHT)
+        en.move(HEIGHT, objects)
+        if en.is_collided(HEIGHT, player.get_rect(HEIGHT)):
+            player.tp((100, 0))
 
 
     # objects
