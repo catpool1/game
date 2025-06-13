@@ -3,6 +3,7 @@ import pygame
 from models.player import Player
 from models.enemy import Enemy
 from models.object import Object
+from models.spike import Spike
 
 
 # screen settings
@@ -26,8 +27,7 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 # player model
 player = Player() # 10 -> 192 jump height
 enemies = [Enemy(pos=(780, 580)), Enemy(pos=(700, 340), speed_x=4),
-           Enemy(pos=(1100, 0), direction='left'), Enemy(pos=(1300, 0), speed_x=6),
-           Enemy(pos=(1315, 630), speed_x=0)]
+           Enemy(pos=(1100, 0), direction='left'), Enemy(pos=(1300, 0), speed_x=6)]
 
 # fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180
 # jump threw collisions on some pixels: 360 -> 440
@@ -43,6 +43,8 @@ objects = [Object((100, 170), (80, 22)),
            Object((1400, 400), (200, 30)),
            Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
            Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
+
+extra_obj = [Spike((1320, 630), texture='enemy_test')]
 
 # test = {}
 # test['player'] = player.get_info()
@@ -86,6 +88,11 @@ while True:
     # objects
     for obj in objects:
         obj.blit(screen, HEIGHT)
+
+    for ex_obj in extra_obj:
+        ex_obj.blit(screen, HEIGHT)
+        if ex_obj.is_collided(HEIGHT, player.get_rect(HEIGHT)):
+            player.tp((100, 0))
 
     # display update
     text_fps = font_fps.render(f'FPS: {int(clock.get_fps())}', True, (0, 0, 0))

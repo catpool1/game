@@ -21,7 +21,7 @@ class Object:
         return self._x, screen_height - self._y, self._width, self._height
 
     def get_info(self) -> dict:
-        return {'pos': (self._x, self._y), 'size': (self._width, self._height), '_texture': self._texture_name}
+        return {'pos': (self._x, self._y), 'size': (self._width, self._height), 'texture': self._texture_name}
 
 
     def is_under(self, screen_height: int, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool:

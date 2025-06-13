@@ -36,8 +36,8 @@ class Entity:
         return self._x, screen_height - self._y, self._width, self._height
 
     def get_info(self) -> dict:
-        return {'_speed_x': self._speed_x, '_fall_speed': self._fall_speed, '_jump_height': self._jump_height,
-                '_hp': self._hp, 'pos': (self._x, self._y), 'size': (self._width, self._height), '_texture_name': self._texture_name}
+        return {'speed_x': self._speed_x, 'fall_speed': self._fall_speed, 'jump_height': self._jump_height,
+                'hp': self._hp, 'pos': (self._x, self._y), 'size': (self._width, self._height), 'texture_name': self._texture_name}
 
 
     def is_collided(self, screen_height: int, rect: tuple) -> bool:
