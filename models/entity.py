@@ -3,7 +3,7 @@ from pygame import SurfaceType
 
 
 class Entity:
-    def __init__(self, speed_x: int, fall_speed: int, jump_height: int, hp: int, pos: tuple, size: tuple, texture_name: str) -> None:
+    def __init__(self, speed_x: int, fall_speed: int, jump_height: int, direction: str, hp: int, pos: tuple, size: tuple, texture_name: str) -> None:
         self._x = pos[0]
         self._y = pos[1]
         self._speed_x = speed_x
@@ -12,6 +12,7 @@ class Entity:
         self._height = size[1]
         self._hp = hp
         self._jump_height = jump_height
+        self._direction = direction
         self._texture_name = texture_name
         texture = pygame.image.load(f'resources/{texture_name}.png')
         self._texture = pygame.transform.scale(texture, (self._width, self._height))
@@ -36,7 +37,7 @@ class Entity:
         return self._x, screen_height - self._y, self._width, self._height
 
     def get_info(self) -> dict:
-        return {'speed_x': self._speed_x, 'fall_speed': self._fall_speed, 'jump_height': self._jump_height,
+        return {'speed_x': self._speed_x, 'fall_speed': self._fall_speed, 'jump_height': self._jump_height, 'direction': self._direction,
                 'hp': self._hp, 'pos': (self._x, self._y), 'size': (self._width, self._height), 'texture_name': self._texture_name}
 
 

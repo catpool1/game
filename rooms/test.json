@@ -1,8 +1,9 @@
 {
     "player": {
-        "speed_x": 6,
-        "fall_speed": 10,
+        "speed_x": 14,
+        "fall_speed": 8,
         "jump_height": 10,
+        "direction": "none",
         "hp": 100,
         "pos": [
             50,
@@ -14,7 +15,84 @@
         ],
         "texture_name": "player_test"
     },
+    "enemies": [
+        {
+            "speed_x": 5,
+            "fall_speed": 10,
+            "jump_height": 8,
+            "direction": "right",
+            "hp": 100,
+            "pos": [
+                780,
+                580
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture_name": "enemy_test"
+        },
+        {
+            "speed_x": 4,
+            "fall_speed": 10,
+            "jump_height": 8,
+            "direction": "right",
+            "hp": 100,
+            "pos": [
+                700,
+                340
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture_name": "enemy_test"
+        },
+        {
+            "speed_x": 5,
+            "fall_speed": 10,
+            "jump_height": 8,
+            "direction": "left",
+            "hp": 100,
+            "pos": [
+                1100,
+                0
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture_name": "enemy_test"
+        },
+        {
+            "speed_x": 6,
+            "fall_speed": 10,
+            "jump_height": 8,
+            "direction": "right",
+            "hp": 100,
+            "pos": [
+                1300,
+                0
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture_name": "enemy_test"
+        }
+    ],
     "objects": [
+        {
+            "pos": [
+                100,
+                170
+            ],
+            "size": [
+                80,
+                22
+            ],
+            "texture": "object_standard"
+        },
         {
             "pos": [
                 1000,
@@ -54,15 +132,15 @@
                 300
             ],
             "size": [
-                80,
-                60
+                180,
+                40
             ],
             "texture": "object_standard"
         },
         {
             "pos": [
-                800,
-                400
+                600,
+                440
             ],
             "size": [
                 80,
@@ -72,12 +150,12 @@
         },
         {
             "pos": [
-                900,
-                500
+                780,
+                550
             ],
             "size": [
-                80,
-                60
+                200,
+                30
             ],
             "texture": "object_standard"
         },
@@ -95,7 +173,7 @@
         {
             "pos": [
                 1200,
-                800
+                570
             ],
             "size": [
                 80,
@@ -106,7 +184,7 @@
         {
             "pos": [
                 1300,
-                800
+                570
             ],
             "size": [
                 80,
@@ -116,12 +194,67 @@
         },
         {
             "pos": [
-                200,
+                870,
+                330
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1100,
+                50
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1200,
+                50
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                700,
                 0
             ],
             "size": [
                 80,
                 60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                700,
+                70
+            ],
+            "size": [
+                80,
+                60
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1400,
+                400
+            ],
+            "size": [
+                200,
+                30
             ],
             "texture": "object_standard"
         },
@@ -157,6 +290,41 @@
                 10
             ],
             "texture": "object_standard"
+        },
+        {
+            "pos": [
+                0,
+                900
+            ],
+            "size": [
+                2000,
+                10
+            ],
+            "texture": "object_standard"
         }
-    ]
+    ],
+    "spikes": [
+        {
+            "pos": [
+                1320,
+                630
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "enemy_test"
+        }
+    ],
+    "exit": {
+        "pos": [
+            1475,
+            430
+        ],
+        "size": [
+            50,
+            50
+        ],
+        "texture": "exit_test"
+    }
 }

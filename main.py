@@ -1,5 +1,5 @@
 import pygame
-# import json
+import json
 from models.player import Player
 from models.enemy import Enemy
 from models.object import Object
@@ -24,38 +24,50 @@ clock = pygame.time.Clock()
 # text
 font_fps = pygame.font.SysFont("timesnewroman", 20)
 
-
-# player model
-player = Player(jump_height=10, speed_x=14, fall_speed=8) # 10 -> 192 jump height
-enemies = [Enemy(pos=(780, 580)), Enemy(pos=(700, 340), speed_x=4),
-           Enemy(pos=(1100, 0), direction='left'), Enemy(pos=(1300, 0), speed_x=6)]
-spikes = [Spike((1320, 630))]
-
 # fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180
 # jump threw collisions on some pixels: 360 -> 440
 
-objects = [Object((100, 170), (80, 22)),
-           Object((1000, 600), (80, 60)), Object((500, 100), (80, 60)),
-           Object((600, 200), (80, 60)), Object((700, 300), (180, 40)),
-           Object((600, 440), (80, 60)), Object((780, 550), (200, 30)),
-           Object((1100, 700), (80, 60)), Object((1200, 570), (80, 60)),
-           Object((1300, 570), (80, 60)), Object((870, 330), (40, 40)),
-           Object((1100, 50), (80, 60)), Object((1200, 50), (80, 60)),
-           Object((700, 0), (80, 60)), Object((700, 70), (80, 60)),
-           Object((1400, 400), (200, 30)),
-           Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
-           Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
 
-room_exit = Exit((1475, 430))
-
-# test = {}
+# # saving room stats
+# test = dict()
 # test['player'] = player.get_info()
+#
+# test['enemies'] = []
+# for en in enemies:
+#     test['enemies'].append(en.get_info())
+#
 # test['objects'] = []
 # for obj in objects:
 #     test['objects'].append(obj.get_info())
 #
+# test['spikes'] = []
+# for sp in spikes:
+#     test['spikes'].append(sp.get_info())
+#
+# test['exit'] = exit_room.get_info()
+#
 # with open('rooms/test.json', 'r+') as f:
 #     json.dump(test, f, indent=4)
+
+
+# reading room stats
+with open('rooms/test.json', 'r') as f:
+    js = json.load(f)
+
+player = Player(js['player']['speed_x'], js['player']['fall_speed'], js['player']['jump_height'], js['player']['direction'],
+                js['player']['hp'], js['player']['pos'], js['player']['size'], js['player']['texture_name'])
+enemies = []
+for en in js['enemies']:
+    enemies.append(Enemy(en['speed_x'], en['fall_speed'], en['jump_height'], en['direction'],
+                         en['hp'], en['pos'], en['size'], en['texture_name']))
+objects = []
+for obj in js['objects']:
+    objects.append(Object(obj['pos'], obj['size'], obj['texture']))
+spikes = []
+for sp in js['spikes']:
+    spikes.append(Spike(sp['pos'], sp['size'], sp['texture']))
+
+exit_room = Exit(js['exit']['pos'], js['exit']['size'], js['exit']['texture'])
 
 # main cycle
 while True:
@@ -93,9 +105,9 @@ while True:
 
 
     # objects
-    room_exit.blit(screen, HEIGHT)
-    if room_exit.is_collided(HEIGHT, player.get_rect(HEIGHT)):
-        room_exit.result(player)
+    exit_room.blit(screen, HEIGHT)
+    if exit_room.is_collided(HEIGHT, player.get_rect(HEIGHT)):
+        exit_room.result(player)
 
     for obj in objects:
         obj.blit(screen, HEIGHT)
