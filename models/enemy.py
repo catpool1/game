@@ -57,3 +57,8 @@ class Enemy(Entity):
                 break
         else:
             self._fall()
+
+
+    @staticmethod
+    def result(player):
+        player.death()

@@ -72,3 +72,7 @@ class Player(Entity):
                 self.__is_jump = False
 
         self.__jump_pause = False
+
+
+    def death(self):
+        self.tp((100, 0))

@@ -160,7 +160,8 @@ class Player(Entity):
     def update(self, up, down, left, right, running, platforms):
         if up:
             # only jump if on the ground
-            if self.onGround: self.yvel -= 10
+            if self.onGround:
+                self.yvel -= 10
         if down:
             pass
         if running:
@@ -169,13 +170,17 @@ class Player(Entity):
             self.xvel = -8
         if right:
             self.xvel = 8
+
         if not self.onGround:
             # only accelerate with gravity if in the air
             self.yvel += 0.3
             # max falling speed
-            if self.yvel > 100: self.yvel = 100
+            if self.yvel > 100:
+                self.yvel = 100
+
         if not(left or right):
             self.xvel = 0
+
         # increment in x direction
         self.rect.left += self.xvel
         # do x-axis collisions
@@ -183,7 +188,7 @@ class Player(Entity):
         # increment in y direction
         self.rect.top += self.yvel
         # assuming we're in the air
-        self.onGround = False;
+        self.onGround = False
         # do y-axis collisions
         self.collide(0, self.yvel, platforms)
 
@@ -194,12 +199,10 @@ class Player(Entity):
                     pygame.event.post(pygame.event.Event(QUIT))
                 if xvel > 0:
                     self.rect.right = p.rect.left
-                    print
-                    "collide right"
+                    # print("collide right")
                 if xvel < 0:
                     self.rect.left = p.rect.right
-                    print
-                    "collide left"
+                    # print("collide left")
                 if yvel > 0:
                     self.rect.bottom = p.rect.top
                     self.onGround = True
