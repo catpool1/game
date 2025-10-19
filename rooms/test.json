@@ -194,8 +194,30 @@
         },
         {
             "pos": [
-                870,
-                330
+                840,
+                340
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                970,
+                130
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
+                1010,
+                140
             ],
             "size": [
                 40,

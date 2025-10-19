@@ -28,15 +28,15 @@ class Object:
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
-        if (self._x + self._width > target_x > self._x) or (self._x < target_x + target_width < self._x + self._width):
+        if (self._x + self._width > target_x > self._x) or (self._x < target_x + target_width < self._x + self._width) or \
+                (target_x <= self._x < target_x + target_width) or (target_x > self._x + self._width >= target_x + target_width):
             if screen_height - target_y <= screen_height - self._y - self._height:
                 if screen_height - target_y + (target_fall_count**2)/2 >= screen_height - self._y - self._height:
                     return True
         return False
 
-    def get_distance_up(self, target_pos: tuple) -> int:
-        target_y = target_pos[1]
-        return target_y - (self._y + self._height)
+    def get_distance_up(self) -> int:
+        return self._y + self._height
 
 
     def is_on_right(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
@@ -49,10 +49,8 @@ class Object:
                     return True
         return False
 
-    def get_distance_right(self, target_pos: tuple, target_size: tuple) -> int:
-        target_x = target_pos[0]
-        target_width = target_size[0]
-        return self._x - target_x - target_width
+    def get_distance_right(self, target_size: tuple) -> int:
+        return self._x - target_size[0]
 
 
     def is_on_left(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
@@ -65,25 +63,23 @@ class Object:
                     return True
         return False
 
-    def get_distance_left(self, target_pos: tuple) -> int:
-        target_x = target_pos[0]
-        return target_x - (self._x + self._width)
+    def get_distance_left(self) -> int:
+        return self._x + self._width
 
 
     def is_upper(self, screen_height: int, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
-        if (self._x + self._width > target_x > self._x) or (self._x < target_x + target_width < self._x + self._width):
+        if (self._x + self._width > target_x > self._x) or (self._x < target_x + target_width < self._x + self._width) or \
+                (target_x <= self._x < target_x + target_width) or (target_x > self._x + self._width >= target_x + target_width):
             if screen_height - target_y >= screen_height - self._y - self._height:
                 if screen_height - target_y - target_height - (target_jump_count**2)/2 <= screen_height - self._y:
                     return True
         return False
 
-    def get_distance_down(self, target_pos: tuple, target_size: tuple) -> int:
-        target_y = target_pos[1]
-        target_height = target_size[1]
-        return self._y - target_y - target_height
+    def get_distance_down(self, target_size: tuple) -> int:
+        return self._y - target_size[1]
 
 
     def is_on_left_edge(self, target_move_count: int, target_pos: tuple) -> bool:

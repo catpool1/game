@@ -23,7 +23,7 @@ class Player(Entity):
 
             for obj in objects:
                 if obj.is_on_left(self._move_count, (self._x, self._y), (self._width, self._height)):
-                    self._move_left(True, obj.get_distance_left((self._x, self._y)))
+                    self._move_left(True, obj.get_distance_left())
                     break
             else:
                 self._move_left()
@@ -35,7 +35,7 @@ class Player(Entity):
 
             for obj in objects:
                 if obj.is_on_right(self._move_count, (self._x, self._y), (self._width, self._height)):
-                    self._move_right(True, obj.get_distance_right((self._x, self._y), (self._width, self._height)))
+                    self._move_right(True, obj.get_distance_right((self._width, self._height)))
                     break
             else:
                 self._move_right()
@@ -54,12 +54,12 @@ class Player(Entity):
                         self.__is_jump = True
                         self.__jump_pause = True
 
-                    self._fall(True, obj.get_distance_up((self._x, self._y)))
+                    self._fall(True, obj.get_distance_up())
                 break
 
             if self.__is_jump:
                 if obj.is_upper(screen_height, self._jump_count, (self._x, self._y), (self._width, self._height)):
-                    self._jump(True, obj.get_distance_down((self._x, self._y), (self._width, self._height)))
+                    self._jump(True, obj.get_distance_down((self._width, self._height)))
                     self.__is_jump = False
         else:
             if not self.__is_jump:

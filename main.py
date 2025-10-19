@@ -24,30 +24,8 @@ clock = pygame.time.Clock()
 # text
 font_fps = pygame.font.SysFont("timesnewroman", 20)
 
-# fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180
+# fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180 / 260 - 360
 # jump threw collisions on some pixels: 360 -> 440
-
-
-# # saving room stats
-# test = dict()
-# test['player'] = player.get_info()
-#
-# test['enemies'] = []
-# for en in enemies:
-#     test['enemies'].append(en.get_info())
-#
-# test['objects'] = []
-# for obj in objects:
-#     test['objects'].append(obj.get_info())
-#
-# test['spikes'] = []
-# for sp in spikes:
-#     test['spikes'].append(sp.get_info())
-#
-# test['exit'] = exit_room.get_info()
-#
-# with open('rooms/test.json', 'r+') as f:
-#     json.dump(test, f, indent=4)
 
 
 # reading room stats
@@ -69,6 +47,7 @@ for sp in js['spikes']:
 
 exit_room = Exit(js['exit']['pos'], js['exit']['size'], js['exit']['texture'])
 
+
 # main cycle
 while True:
     for e in pygame.event.get():
@@ -79,7 +58,9 @@ while True:
     if keys[pygame.K_c]:
         print(player.get_xy())
     if keys[pygame.K_x]:
-        player.tp((1200, 700))
+        player.tp((970, 400))
+    if keys[pygame.K_f]:
+        exit_room.result(player)
     if keys[pygame.K_ESCAPE]:
         exit()
 
@@ -91,12 +72,13 @@ while True:
     player.blit(screen, HEIGHT)
     player.move(HEIGHT, keys, objects)
 
+
     # enemies
-    for en in enemies:
-        en.blit(screen, HEIGHT)
-        en.move(HEIGHT, objects)
-        if en.is_collided(HEIGHT, player.get_rect(HEIGHT)):
-            en.result(player)
+    # for en in enemies:
+    #     en.blit(screen, HEIGHT)
+    #     en.move(HEIGHT, objects)
+    #     if en.is_collided(HEIGHT, player.get_rect(HEIGHT)):
+    #         en.result(player)
 
     for sp in spikes:
         sp.blit(screen, HEIGHT)
@@ -112,10 +94,6 @@ while True:
     for obj in objects:
         obj.blit(screen, HEIGHT)
 
-    # for ex_obj in extra_obj:
-    #     ex_obj.blit(screen, HEIGHT)
-    #     if ex_obj.is_collided(HEIGHT, player.get_rect(HEIGHT)):
-    #         player.tp((100, 0))
 
     # display update
     text_fps = font_fps.render(f'FPS: {int(clock.get_fps())}', True, (0, 0, 0))

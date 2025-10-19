@@ -54,7 +54,7 @@ class Entity:
                 self._move_count += 1
             self._x += round((self._move_count ** 1.1) / 2)
         else:
-            self._x += distance
+            self._x = distance
 
     def _move_left(self, on_distance: bool = False, distance: int = 0) -> None:
         if not on_distance:
@@ -62,7 +62,7 @@ class Entity:
                 self._move_count += 1
             self._x -= round((self._move_count ** 1.1) / 2)
         else:
-            self._x -= distance
+            self._x = distance
 
 
     def _jump(self, on_distance: bool = False, distance: int = 0) -> bool:
@@ -76,7 +76,7 @@ class Entity:
             return True
         else:
             # print(distance, self._y, self._jump_count, (self._jump_count ** 2) / 2)
-            self._y += distance
+            self._y = distance
             self._jump_count = self._jump_height
             return False
 
@@ -86,7 +86,7 @@ class Entity:
                 self._fall_count += 1
             self._y -= (self._fall_count ** 2) / 2
         else:
-            self._y -= distance
+            self._y = distance
 
 
     def tp(self, pos: tuple) -> None:
