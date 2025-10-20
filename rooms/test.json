@@ -282,6 +282,17 @@
         },
         {
             "pos": [
+                630,
+                500
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture": "object_standard"
+        },
+        {
+            "pos": [
                 -10,
                 0
             ],
@@ -336,6 +347,24 @@
                 40
             ],
             "texture": "enemy_test"
+        }
+    ],
+    "levers": [
+        {
+            "pos": [
+                1200,
+                110
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "touch_object_test",
+            "switched_texture": "switched_touch_object_test",
+            "door_pos": [
+                630,
+                500
+            ]
         }
     ],
     "exit": {

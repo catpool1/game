@@ -5,6 +5,7 @@ from models.enemy import Enemy
 from models.object import Object
 from models.spike import Spike
 from models.exit import Exit
+from models.lever import Lever
 
 
 # screen settings
@@ -34,16 +35,25 @@ with open('rooms/test.json', 'r') as f:
 
 player = Player(js['player']['speed_x'], js['player']['fall_speed'], js['player']['jump_height'], js['player']['direction'],
                 js['player']['hp'], js['player']['pos'], js['player']['size'], js['player']['texture_name'])
+
 enemies = []
 for en in js['enemies']:
     enemies.append(Enemy(en['speed_x'], en['fall_speed'], en['jump_height'], en['direction'],
                          en['hp'], en['pos'], en['size'], en['texture_name']))
+
 objects = []
 for obj in js['objects']:
     objects.append(Object(obj['pos'], obj['size'], obj['texture']))
+
 spikes = []
 for sp in js['spikes']:
     spikes.append(Spike(sp['pos'], sp['size'], sp['texture']))
+
+levers = []
+for lv in js['levers']:
+    for obj in objects:
+        if obj.get_info()['pos'] == tuple(lv['door_pos']):
+            levers.append(Lever(obj, lv['pos'], lv['size'], lv['texture'], lv['switched_texture']))
 
 exit_room = Exit(js['exit']['pos'], js['exit']['size'], js['exit']['texture'])
 
@@ -68,11 +78,6 @@ while True:
     screen.fill((255, 255, 255))
 
 
-    # player
-    player.blit(screen, HEIGHT)
-    player.move(HEIGHT, keys, objects)
-
-
     # enemies
     # for en in enemies:
     #     en.blit(screen, HEIGHT)
@@ -87,12 +92,22 @@ while True:
 
 
     # objects
+    for lv in levers:
+        lv.blit(screen, HEIGHT)
+        if lv.is_collided(HEIGHT, player.get_rect(HEIGHT)):
+            lv.result()
+
     exit_room.blit(screen, HEIGHT)
     if exit_room.is_collided(HEIGHT, player.get_rect(HEIGHT)):
         exit_room.result(player)
 
     for obj in objects:
         obj.blit(screen, HEIGHT)
+
+
+    # player
+    player.blit(screen, HEIGHT)
+    player.move(HEIGHT, keys, objects)
 
 
     # display update

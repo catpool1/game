@@ -23,6 +23,10 @@ class Object:
     def get_info(self) -> dict:
         return {'pos': (self._x, self._y), 'size': (self._width, self._height), 'texture': self._texture_name}
 
+    def tp(self, pos: tuple):
+        self._x = pos[0]
+        self._y = pos[1]
+
 
     def is_under(self, screen_height: int, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
