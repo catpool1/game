@@ -56,6 +56,9 @@ class Object:
     def get_distance_right(self, target_size: tuple) -> int:
         return self._x - target_size[0]
 
+    def get_distance_right_edge(self) -> int:
+        return self._x
+
 
     def is_on_left(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
         target_x, target_y = target_pos[0], target_pos[1]
@@ -69,6 +72,9 @@ class Object:
 
     def get_distance_left(self) -> int:
         return self._x + self._width
+
+    def get_distance_left_edge(self, target_width: int) -> int:
+        return self._x + self._width - target_width
 
 
     def is_upper(self, screen_height: int, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool:

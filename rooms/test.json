@@ -290,50 +290,6 @@
                 50
             ],
             "texture": "object_standard"
-        },
-        {
-            "pos": [
-                -10,
-                0
-            ],
-            "size": [
-                10,
-                900
-            ],
-            "texture": "object_standard"
-        },
-        {
-            "pos": [
-                1600,
-                0
-            ],
-            "size": [
-                10,
-                900
-            ],
-            "texture": "object_standard"
-        },
-        {
-            "pos": [
-                0,
-                -10
-            ],
-            "size": [
-                2000,
-                10
-            ],
-            "texture": "object_standard"
-        },
-        {
-            "pos": [
-                0,
-                900
-            ],
-            "size": [
-                2000,
-                10
-            ],
-            "texture": "object_standard"
         }
     ],
     "spikes": [
@@ -367,15 +323,18 @@
             ]
         }
     ],
-    "exit": {
-        "pos": [
-            1475,
-            430
-        ],
-        "size": [
-            50,
-            50
-        ],
-        "texture": "exit_test"
-    }
+    "exits": [
+        {
+            "pos": [
+                1475,
+                430
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture": "exit_test",
+            "room_name": "learn_level"
+        }
+    ]
 }

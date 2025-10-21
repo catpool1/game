@@ -1,0 +1,94 @@
+{
+    "player": {
+        "speed_x": 14,
+        "fall_speed": 8,
+        "jump_height": 10,
+        "direction": "none",
+        "hp": 100,
+        "pos": [
+            50,
+            0
+        ],
+        "size": [
+            50,
+            50
+        ],
+        "texture_name": "player_test"
+    },
+    "enemies": [
+        {
+            "speed_x": 5,
+            "fall_speed": 10,
+            "jump_height": 8,
+            "direction": "right",
+            "hp": 100,
+            "pos": [
+                780,
+                0
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture_name": "enemy_test"
+        }
+    ],
+    "objects": [
+        {
+            "pos": [
+                600,
+                0
+            ],
+            "size": [
+                50,
+                300
+            ],
+            "texture": "object_standard"
+        }
+    ],
+    "spikes": [
+        {
+            "pos": [
+                1320,
+                0
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "enemy_test"
+        }
+    ],
+    "levers": [
+        {
+            "pos": [
+                220,
+                0
+            ],
+            "size": [
+                40,
+                40
+            ],
+            "texture": "touch_object_test",
+            "switched_texture": "switched_touch_object_test",
+            "door_pos": [
+                600,
+                0
+            ]
+        }
+    ],
+    "exits": [
+        {
+            "pos": [
+                1400,
+                0
+            ],
+            "size": [
+                50,
+                50
+            ],
+            "texture": "exit_test",
+            "room_name": "test"
+        }
+    ]
+}
