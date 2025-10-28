@@ -17,6 +17,11 @@ class Object:
         screen.blit(self._texture, (self._x,
                                     screen_height - self._y - self._height))
 
+    def is_collided(self, screen_height: int, rect: tuple) -> bool:
+        r1 = pygame.Rect(self._x, screen_height - self._y, self._width, self._height)
+        r2 = pygame.Rect(rect)
+        return r1.colliderect(r2)
+
     def get_rect(self, screen_height: int) -> tuple:
         return self._x, screen_height - self._y, self._width, self._height
 
@@ -28,7 +33,7 @@ class Object:
         self._y = pos[1]
 
 
-    def is_under(self, screen_height: int, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_under(self, screen_height: int, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool: # player fall on object
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
@@ -43,7 +48,7 @@ class Object:
         return self._y + self._height
 
 
-    def is_on_right(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_on_right(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool: # player move right and stop
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
@@ -60,7 +65,7 @@ class Object:
         return self._x
 
 
-    def is_on_left(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_on_left(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool: # player move left and stop
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
@@ -77,7 +82,7 @@ class Object:
         return self._x + self._width - target_width
 
 
-    def is_upper(self, screen_height: int, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool:
+    def is_upper(self, screen_height: int, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool: # player jump and stop
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 

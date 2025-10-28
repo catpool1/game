@@ -8,11 +8,6 @@ class Lever(Object):
         self.door = door
         self.switched_texture = switched_texture
 
-    def is_collided(self, screen_height: int, rect: tuple) -> bool:
-        r1 = pygame.Rect(self._x, screen_height - self._y, self._width, self._height)
-        r2 = pygame.Rect(rect)
-        return r1.colliderect(r2)
-
     def result(self):
         self.door.tp((-1000, -1000))
         texture = pygame.image.load(f'resources/{self.switched_texture}.png')

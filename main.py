@@ -25,7 +25,7 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
 # room load
-level = room_load('learn_level')
+level = room_load('test')
 player = level[0]
 enemies = level[1]
 objects = level[2]
@@ -90,7 +90,7 @@ while True:
             backgrounds = level[6]
             player.tp((50, 0))
 
-    for obj in objects:
+    for obj in objects: # 4 'for' cycles with objects (that's bad)
         obj.blit(screen, HEIGHT)
 
 

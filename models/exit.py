@@ -6,11 +6,5 @@ class Exit(Object):
         super().__init__(pos, size, texture)
         self.room_name = room_name
 
-    def is_collided(self, screen_height: int, rect: tuple) -> bool:
-        r1 = pygame.Rect(self._x, screen_height - self._y, self._width, self._height)
-        r2 = pygame.Rect(rect)
-        return r1.colliderect(r2)
-
-
     def room(self):
         return self.room_name
