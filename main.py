@@ -18,10 +18,13 @@ clock = pygame.time.Clock()
 # text
 font_fps = pygame.font.SysFont("timesnewroman", 20)
 
+
+# bugs:
 # fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180 / 260 - 360
 # jump threw collisions on some pixels: 360 -> 440
 
 
+# room load
 level = room_load('learn_level')
 player = level[0]
 enemies = level[1]
@@ -29,6 +32,7 @@ objects = level[2]
 spikes = level[3]
 levers = level[4]
 exits = level[5]
+backgrounds = level[6]
 
 
 # main cycle
@@ -49,6 +53,9 @@ while True:
 
     # background
     screen.fill((255, 255, 255))
+
+    for bk in backgrounds:
+        bk.blit(screen, HEIGHT)
 
 
     # enemies
@@ -80,6 +87,7 @@ while True:
             spikes = level[3]
             levers = level[4]
             exits = level[5]
+            backgrounds = level[6]
             player.tp((50, 0))
 
     for obj in objects:

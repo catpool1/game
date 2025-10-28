@@ -90,5 +90,18 @@
             "texture": "exit_test",
             "room_name": "test"
         }
+    ],
+    "backgrounds": [
+        {
+            "pos": [
+                0,
+                0
+            ],
+            "size": [
+                1600,
+                900
+            ],
+            "texture": "background_standard"
+        }
     ]
 }

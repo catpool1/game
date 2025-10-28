@@ -39,4 +39,8 @@ def room_load(level_name: str) -> tuple:
     for ex in js['exits']:
         exits.append(Exit(ex['pos'], ex['size'], ex['texture'], ex['room_name']))
 
-    return player, enemies, objects, spikes, levers, exits
+    backgrounds = []
+    for bk in js['backgrounds']:
+        backgrounds.append(Object(bk['pos'], bk['size'], bk['texture']))
+
+    return player, enemies, objects, spikes, levers, exits, backgrounds
