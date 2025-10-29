@@ -25,7 +25,7 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
 # room load
-level = room_load('test')
+level = room_load('learn_level')
 player = level[0]
 enemies = level[1]
 objects = level[2]
@@ -103,4 +103,4 @@ while True:
     text_fps = font_fps.render(f'FPS: {int(clock.get_fps())}', True, (0, 0, 0))
     screen.blit(text_fps, (WIDTH - 80, HEIGHT - 20))
     pygame.display.flip()
-    clock.tick(60)
+    clock.tick(30)

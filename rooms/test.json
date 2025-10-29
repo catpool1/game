@@ -1,8 +1,8 @@
 {
     "player": {
-        "speed_x": 14,
+        "speed_x": 16,
         "fall_speed": 8,
-        "jump_height": 10,
+        "jump_height": 11,
         "direction": "none",
         "hp": 100,
         "pos": [
@@ -10,8 +10,8 @@
             0
         ],
         "size": [
-            45,
-            65
+            63,
+            91
         ],
         "texture_name": "knight"
     },
@@ -287,9 +287,9 @@
             ],
             "size": [
                 50,
-                50
+                200
             ],
-            "texture": "object_standard"
+            "texture": "background_standard"
         }
     ],
     "spikes": [

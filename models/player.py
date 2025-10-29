@@ -15,7 +15,7 @@ class Player(Entity):
     def move(self, screen_height: int, keys: tuple, objects: list) -> None:
         if (keys[pygame.K_a] and keys[pygame.K_d]) or (not keys[pygame.K_a] and not keys[pygame.K_d]):
             if not self.__is_jump and not self.__is_fall:
-                self._stay(self.__last_move)
+                self._stay()
 
             self.__last_move = ''
             self._move_count = 2 * (self._speed_x != 0)
@@ -85,3 +85,6 @@ class Player(Entity):
 
     def death(self):
         self.tp((100, 0))
+
+    def pr(self):
+        return self.__last_move

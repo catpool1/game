@@ -21,6 +21,45 @@ class Entity:
         self._fall_count = 0
         self._move_count = 2 * (self._speed_x != 0)
         self._texture_last_move = 'right' # for correct texture direction
+        self._texture_counter = 0
+        self.__texture_frames = 5 # frames on one texture
+        self._last_func = 'stay'
+
+
+        self.__idle_right_texture = [pygame.image.load(f'resources/{self._texture_name}/Idle right/Idle 1.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Idle right/Idle 2.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Idle right/Idle 3.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Idle right/Idle 4.png')]
+        self.__idle_left_texture = [pygame.image.load(f'resources/{self._texture_name}/Idle left/Idle 1.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Idle left/Idle 2.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Idle left/Idle 3.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Idle left/Idle 4.png')]
+        self.__run_right_texture = [pygame.image.load(f'resources/{self._texture_name}/Run right/Run 1.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run right/Run 2.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run right/Run 3.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run right/Run 4.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run right/Run 5.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run right/Run 6.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run right/Run 7.png')]
+        self.__run_left_texture = [pygame.image.load(f'resources/{self._texture_name}/Run left/Run 1.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run left/Run 2.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run left/Run 3.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run left/Run 4.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run left/Run 5.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run left/Run 6.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Run left/Run 7.png')]
+        self.__jump_right_texture = [pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 1.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 2.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 3.png')]
+        self.__jump_left_texture = [pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 1.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 2.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 3.png')]
+        self.__fall_right_texture = [pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 3.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 4.png'),
+                                     pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 5.png')]
+        self.__fall_left_texture = [pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 3.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 4.png'),
+                                    pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 5.png')]
 
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
@@ -49,25 +88,43 @@ class Entity:
 
 
 
-    def _stay(self, last_move: str = '') -> None: # texture for staying
-        if last_move == 'left':
+    def _stay(self) -> None: # texture for staying
+        if self._last_func == 'stay':
+            if self._texture_counter <= self.__texture_frames*len(self.__idle_left_texture)-2:
+                self._texture_counter += 1
+            else:
+                self._texture_counter = 0
+        else:
+            self._texture_counter = 0
+        self._last_func = 'stay'
+
+        if self._texture_last_move == 'left':
             self._texture_last_move = 'left'
 
             self._texture = pygame.transform.scale(
-                pygame.image.load(f'resources/{self._texture_name}/Idle left/Idle 1.png'),
+                self.__idle_left_texture[self._texture_counter//self.__texture_frames],
                 (self._width, self._height))
 
-        elif last_move == 'right':
+        elif self._texture_last_move == 'right':
             self._texture_last_move = 'right'
 
             self._texture = pygame.transform.scale(
-                pygame.image.load(f'resources/{self._texture_name}/Idle right/Idle 1.png'),
+                self.__idle_right_texture[self._texture_counter//self.__texture_frames],
                 (self._width, self._height))
 
 
     def _move_right(self, on_distance: bool = False, distance: int = 0) -> None:
+        if self._last_func == 'right':
+            if self._texture_counter <= self.__texture_frames*len(self.__run_right_texture)-2:
+                self._texture_counter += 1
+            else:
+                self._texture_counter = 0
+        else:
+            self._texture_counter = 0
+        self._last_func = 'right'
+
         self._texture = pygame.transform.scale(
-            pygame.image.load(f'resources/{self._texture_name}/Run right/Run 1.png'),
+            self.__run_right_texture[self._texture_counter//self.__texture_frames],
             (self._width, self._height)) # texture for moving
 
 
@@ -80,8 +137,17 @@ class Entity:
 
 
     def _move_left(self, on_distance: bool = False, distance: int = 0) -> None:
+        if self._last_func == 'left':
+            if self._texture_counter <= self.__texture_frames*len(self.__run_left_texture)-2:
+                self._texture_counter += 1
+            else:
+                self._texture_counter = 0
+        else:
+            self._texture_counter = 0
+        self._last_func = 'left'
+
         self._texture = pygame.transform.scale(
-            pygame.image.load(f'resources/{self._texture_name}/Run left/Run 1.png'),
+            self.__run_left_texture[self._texture_counter//self.__texture_frames],
             (self._width, self._height)) # texture for moving
 
 
@@ -95,14 +161,20 @@ class Entity:
 
 
     def _jump(self, on_distance: bool = False, distance: int = 0) -> bool:
+        if self._last_func == 'jump':
+            self._texture_counter = 1
+        else:
+            self._texture_counter = 0
+        self._last_func = 'jump'
+
         if self._texture_last_move == 'left': # texture direction
             self._texture = pygame.transform.scale(
-                pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 2.png'),
+                self.__jump_left_texture[self._texture_counter//self.__texture_frames],
                 (self._width, self._height))
 
         elif self._texture_last_move == 'right':
             self._texture = pygame.transform.scale(
-                pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 2.png'),
+                self.__jump_right_texture[self._texture_counter//self.__texture_frames],
                 (self._width, self._height))
 
 
@@ -122,14 +194,20 @@ class Entity:
 
 
     def _fall(self, on_distance: bool = False, distance: int = 0) -> bool:
+        if self._last_func == 'fall':
+            self._texture_counter = 1
+        else:
+            self._texture_counter = 0
+        self._last_func = 'fall'
+
         if self._texture_last_move == 'left': # texture direction
             self._texture = pygame.transform.scale(
-                pygame.image.load(f'resources/{self._texture_name}/Jump left/Jump 3.png'),
+                self.__fall_left_texture[self._texture_counter//self.__texture_frames],
                 (self._width, self._height))
 
         elif self._texture_last_move == 'right':
             self._texture = pygame.transform.scale(
-                pygame.image.load(f'resources/{self._texture_name}/Jump right/Jump 3.png'),
+                self.__fall_right_texture[self._texture_counter//self.__texture_frames],
                 (self._width, self._height))
 
 
