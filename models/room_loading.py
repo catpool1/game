@@ -4,6 +4,7 @@ from models.object import Object
 from models.spike import Spike
 from models.exit import Exit
 from models.lever import Lever
+from models.background import Background
 import json
 
 
@@ -16,9 +17,9 @@ def room_load(level_name: str) -> tuple:
                     js['player']['hp'], js['player']['pos'], js['player']['size'], js['player']['texture_name'])
 
     enemies = []
-    for en in js['enemies']:
-        enemies.append(Enemy(en['speed_x'], en['fall_speed'], en['jump_height'], en['direction'],
-                             en['hp'], en['pos'], en['size'], en['texture_name']))
+    # for en in js['enemies']:
+    #     enemies.append(Enemy(en['speed_x'], en['fall_speed'], en['jump_height'], en['direction'],
+    #                          en['hp'], en['pos'], en['size'], en['texture_name']))
 
     objects = [Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
            Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
@@ -41,6 +42,6 @@ def room_load(level_name: str) -> tuple:
 
     backgrounds = []
     for bk in js['backgrounds']:
-        backgrounds.append(Object(bk['pos'], bk['size'], bk['texture']))
+        backgrounds.append(Background(bk['pos'], bk['size'], bk['texture']))
 
     return player, enemies, objects, spikes, levers, exits, backgrounds

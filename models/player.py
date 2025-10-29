@@ -8,11 +8,15 @@ class Player(Entity):
 
         self.__last_move = ''
         self.__is_jump = False
+        self.__is_fall = False
         self.__jump_pause = False
 
 
     def move(self, screen_height: int, keys: tuple, objects: list) -> None:
-        if keys[pygame.K_a] and keys[pygame.K_d]:
+        if (keys[pygame.K_a] and keys[pygame.K_d]) or (not keys[pygame.K_a] and not keys[pygame.K_d]):
+            if not self.__is_jump and not self.__is_fall:
+                self._stay(self.__last_move)
+
             self.__last_move = ''
             self._move_count = 2 * (self._speed_x != 0)
 
@@ -20,6 +24,7 @@ class Player(Entity):
             if self.__last_move != 'left':
                 self._move_count = 2
                 self.__last_move = 'left'
+                self._texture_last_move = 'left'
 
             for obj in objects:
                 if obj.is_on_left(self._move_count, (self._x, self._y), (self._width, self._height)):
@@ -32,6 +37,7 @@ class Player(Entity):
             if self.__last_move != 'right':
                 self._move_count = 2 * (self._speed_x != 0)
                 self.__last_move = 'right'
+                self._texture_last_move = 'right'
 
             for obj in objects:
                 if obj.is_on_right(self._move_count, (self._x, self._y), (self._width, self._height)):
@@ -42,6 +48,7 @@ class Player(Entity):
 
         else:
             self.__last_move = ''
+            self._texture_last_move = 'right'
 
 
         for obj in objects:
@@ -54,7 +61,8 @@ class Player(Entity):
                         self.__is_jump = True
                         self.__jump_pause = True
 
-                    self._fall(True, obj.get_distance_up())
+                    if obj.get_distance_up() != self._y:
+                        self.__is_fall = self._fall(True, obj.get_distance_up())
                 break
 
             if self.__is_jump:
@@ -63,8 +71,9 @@ class Player(Entity):
                     self.__is_jump = False
         else:
             if not self.__is_jump:
-                self._fall()
+                self.__is_fall = self._fall()
                 self.__jump_pause = True
+
 
         # continue jumping
         if self.__is_jump and not self.__jump_pause:

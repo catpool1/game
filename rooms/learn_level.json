@@ -10,10 +10,10 @@
             0
         ],
         "size": [
-            50,
-            50
+            45,
+            65
         ],
-        "texture_name": "player_test"
+        "texture_name": "knight"
     },
     "enemies": [
         {
@@ -101,7 +101,7 @@
                 1600,
                 900
             ],
-            "texture": "background_standard"
+            "texture": "background 2"
         }
     ]
 }

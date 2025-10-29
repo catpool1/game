@@ -59,11 +59,11 @@ while True:
 
 
     # enemies
-    for en in enemies:
-        en.blit(screen, HEIGHT)
-        en.move(HEIGHT, objects)
-        if en.is_collided(HEIGHT, player.get_rect(HEIGHT)):
-            en.result(player)
+    # for en in enemies:
+    #     en.blit(screen, HEIGHT)
+    #     en.move(HEIGHT, objects)
+    #     if en.is_collided(HEIGHT, player.get_rect(HEIGHT)):
+    #         en.result(player)
 
     for sp in spikes:
         sp.blit(screen, HEIGHT)

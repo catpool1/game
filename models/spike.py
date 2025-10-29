@@ -1,5 +1,4 @@
 from models.object import Object
-import pygame
 
 class Spike(Object):
     def __init__(self, pos: tuple = (0, 0), size: tuple = (40, 40), texture: str = 'enemy_test'):
