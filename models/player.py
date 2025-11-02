@@ -27,7 +27,7 @@ class Player(Entity):
                 self._texture_last_move = 'left'
 
             for obj in objects:
-                if obj.is_on_left(self._move_count, (self._x, self._y), (self._width, self._height)):
+                if obj.is_on_left(self._move_count, self.get_xy(), self.get_size()):
                     self._move_left(True, obj.get_distance_left())
                     break
             else:
@@ -40,8 +40,8 @@ class Player(Entity):
                 self._texture_last_move = 'right'
 
             for obj in objects:
-                if obj.is_on_right(self._move_count, (self._x, self._y), (self._width, self._height)):
-                    self._move_right(True, obj.get_distance_right((self._width, self._height)))
+                if obj.is_on_right(self._move_count, self.get_xy(), self.get_size()):
+                    self._move_right(True, obj.get_distance_right(self.get_size()))
                     break
             else:
                 self._move_right()
@@ -52,7 +52,7 @@ class Player(Entity):
 
 
         for obj in objects:
-            if obj.is_under(screen_height, self._fall_count, (self._x, self._y), (self._width, self._height)):
+            if obj.is_under(self._fall_count, self.get_xy(), self.get_size()):
                 self._fall_count = 0
 
                 # jumps
@@ -67,8 +67,8 @@ class Player(Entity):
                 break
 
             if self.__is_jump:
-                if obj.is_upper(screen_height, self._jump_count, (self._x, self._y), (self._width, self._height)):
-                    self._jump(True, obj.get_distance_down((self._width, self._height)))
+                if obj.is_upper(self._jump_count, self.get_xy(), self.get_size()):
+                    self._jump(True, obj.get_distance_down(self.get_size()))
                     self.__is_jump = False
         else:
             if not self.__is_jump:

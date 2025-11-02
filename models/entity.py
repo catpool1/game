@@ -212,9 +212,9 @@ class Entity:
 
 
         if not on_distance:
+            self._y -= (self._fall_count ** 2) // 2
             if self._fall_count < self._fall_speed:
                 self._fall_count += 1
-            self._y -= (self._fall_count ** 2) / 2
             return True
         else:
             self._y = distance

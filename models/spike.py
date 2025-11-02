@@ -5,5 +5,5 @@ class Spike(Object):
         super().__init__(pos, size, texture)
 
     @staticmethod
-    def result(player):
+    def result(player) -> None:
         player.death()

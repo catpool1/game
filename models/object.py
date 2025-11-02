@@ -33,14 +33,15 @@ class Object:
         self._y = pos[1]
 
 
-    def is_under(self, screen_height: int, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool: # player fall on object
+    def is_under(self, target_fall_count: int, target_pos: tuple, target_size: tuple) -> bool: # player fall on object
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
-        if (self._x < target_x < self._x + self._width) or (self._x < target_x + target_width < self._x + self._width) or \
-                (target_x <= self._x < self._x + self._width <= target_x + target_width):
-            if screen_height - target_y <= screen_height - self._y - self._height:
-                if screen_height - target_y + (target_fall_count**2)/2 >= screen_height - self._y - self._height:
+        if (target_x <= self._x < target_x + target_width) or \
+                (target_x < self._x + self._width <= target_x + target_width) or \
+                (self._x < target_x < target_x + target_width < self._x + self._width):
+            if target_y >= self._y + self._height:
+                if target_y - (target_fall_count**2)//2 <= self._y + self._height:
                     return True
         return False
 
@@ -61,9 +62,6 @@ class Object:
     def get_distance_right(self, target_size: tuple) -> int:
         return self._x - target_size[0]
 
-    def get_distance_right_edge(self) -> int:
-        return self._x
-
 
     def is_on_left(self, target_move_count: int, target_pos: tuple, target_size: tuple) -> bool: # player move left and stop
         target_x, target_y = target_pos[0], target_pos[1]
@@ -78,18 +76,16 @@ class Object:
     def get_distance_left(self) -> int:
         return self._x + self._width
 
-    def get_distance_left_edge(self, target_width: int) -> int:
-        return self._x + self._width - target_width
 
-
-    def is_upper(self, screen_height: int, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool: # player jump and stop
+    def is_upper(self, target_jump_count: int, target_pos: tuple, target_size: tuple) -> bool: # player jump and stop
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
-        if (self._x + self._width > target_x > self._x) or (self._x < target_x + target_width < self._x + self._width) or \
-                (target_x <= self._x < target_x + target_width) or (target_x > self._x + self._width >= target_x + target_width):
-            if screen_height - target_y >= screen_height - self._y - self._height:
-                if screen_height - target_y - target_height - (target_jump_count**2)/2 <= screen_height - self._y:
+        if (target_x <= self._x < target_x + target_width) or \
+                (target_x < self._x + self._width <= target_x + target_width) or \
+                (self._x < target_x < target_x + target_width < self._x + self._width):
+            if target_y <= self._y + self._height:
+                if target_y + target_height + (target_jump_count**2)/2 >= self._y:
                     return True
         return False
 

@@ -21,10 +21,11 @@ def room_load(level_name: str) -> tuple:
     #     enemies.append(Enemy(en['speed_x'], en['fall_speed'], en['jump_height'], en['direction'],
     #                          en['hp'], en['pos'], en['size'], en['texture_name']))
 
-    objects = [Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
-           Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))]
+    objects = []
     for obj in js['objects']:
         objects.append(Object(obj['pos'], obj['size'], obj['texture']))
+    objects.extend([Object((-10, 0), (10, 900)), Object((1600, 0), (10, 900)),
+           Object((0, -10), (2000, 10)), Object((0, 900), (2000, 10))])
 
     spikes = []
     for sp in js['spikes']:

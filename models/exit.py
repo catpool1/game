@@ -6,5 +6,5 @@ class Exit(Object):
         super().__init__(pos, size, texture)
         self.room_name = room_name
 
-    def room(self):
+    def room(self) -> str:
         return self.room_name

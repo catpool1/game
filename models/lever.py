@@ -8,7 +8,7 @@ class Lever(Object):
         self.door = door
         self.switched_texture = switched_texture
 
-    def result(self):
+    def result(self) -> None:
         self.door.tp((-1000, -1000))
         texture = pygame.image.load(f'resources/{self.switched_texture}.png')
         self._texture = pygame.transform.scale(texture, (self._width, self._height))
