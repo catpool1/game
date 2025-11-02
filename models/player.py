@@ -14,7 +14,7 @@ class Player(Entity):
 
     def move(self, screen_height: int, keys: tuple, objects: list) -> None:
         if (keys[pygame.K_a] and keys[pygame.K_d]) or (not keys[pygame.K_a] and not keys[pygame.K_d]):
-            if not self.__is_jump and not self.__is_fall:
+            if not self.__is_jump:
                 self._stay()
 
             self.__last_move = ''
@@ -62,7 +62,8 @@ class Player(Entity):
                         self.__jump_pause = True
 
                     if obj.get_distance_up() != self._y:
-                        self.__is_fall = self._fall(True, obj.get_distance_up())
+                        self._fall(True, obj.get_distance_up())
+                        self.__is_fall = False
                 break
 
             if self.__is_jump:
@@ -71,8 +72,9 @@ class Player(Entity):
                     self.__is_jump = False
         else:
             if not self.__is_jump:
-                self.__is_fall = self._fall()
+                self._fall()
                 self.__jump_pause = True
+                self.__is_fall = True
 
 
         # continue jumping
@@ -85,6 +87,3 @@ class Player(Entity):
 
     def death(self):
         self.tp((100, 0))
-
-    def pr(self):
-        return self.__last_move

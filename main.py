@@ -25,7 +25,7 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
 # room load
-level = room_load('learn_level')
+level = room_load('test')
 player = level[0]
 enemies = level[1]
 objects = level[2]

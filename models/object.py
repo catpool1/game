@@ -37,8 +37,8 @@ class Object:
         target_x, target_y = target_pos[0], target_pos[1]
         target_width, target_height = target_size[0], target_size[1]
 
-        if (self._x + self._width > target_x > self._x) or (self._x < target_x + target_width < self._x + self._width) or \
-                (target_x <= self._x < target_x + target_width) or (target_x > self._x + self._width >= target_x + target_width):
+        if (self._x < target_x < self._x + self._width) or (self._x < target_x + target_width < self._x + self._width) or \
+                (target_x <= self._x < self._x + self._width <= target_x + target_width):
             if screen_height - target_y <= screen_height - self._y - self._height:
                 if screen_height - target_y + (target_fall_count**2)/2 >= screen_height - self._y - self._height:
                     return True

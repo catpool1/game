@@ -15,14 +15,14 @@ class Entity:
         self._direction = direction
         self._texture_name = texture_name
         texture = pygame.image.load(f'resources/{texture_name}/Idle right/Idle 1.png')
-        self._texture = pygame.transform.scale(texture, (self._width, self._height))
+        self._texture = pygame.transform.scale(texture, (self._height, self._height))
 
         self._jump_count = jump_height
         self._fall_count = 0
         self._move_count = 2 * (self._speed_x != 0)
         self._texture_last_move = 'right' # for correct texture direction
         self._texture_counter = 0
-        self.__texture_frames = 5 # frames on one texture
+        self.__texture_frames = 4 # frames on one texture
         self._last_func = 'stay'
 
 
@@ -63,7 +63,7 @@ class Entity:
 
 
     def blit(self, screen: SurfaceType, screen_height: int) -> None:
-        screen.blit(self._texture, (self._x,
+        screen.blit(self._texture, (self._x - (self._height-self._width)//2,
                                     screen_height - self._y - self._height))
 
 
@@ -90,7 +90,7 @@ class Entity:
 
     def _stay(self) -> None: # texture for staying
         if self._last_func == 'stay':
-            if self._texture_counter <= self.__texture_frames*len(self.__idle_left_texture)-2:
+            if self._texture_counter <= (self.__texture_frames+10)*len(self.__idle_left_texture)-2:
                 self._texture_counter += 1
             else:
                 self._texture_counter = 0
@@ -102,15 +102,15 @@ class Entity:
             self._texture_last_move = 'left'
 
             self._texture = pygame.transform.scale(
-                self.__idle_left_texture[self._texture_counter//self.__texture_frames],
-                (self._width, self._height))
+                self.__idle_left_texture[self._texture_counter//(self.__texture_frames+10)],
+                (self._height, self._height))
 
         elif self._texture_last_move == 'right':
             self._texture_last_move = 'right'
 
             self._texture = pygame.transform.scale(
-                self.__idle_right_texture[self._texture_counter//self.__texture_frames],
-                (self._width, self._height))
+                self.__idle_right_texture[self._texture_counter//(self.__texture_frames+10)],
+                (self._height, self._height))
 
 
     def _move_right(self, on_distance: bool = False, distance: int = 0) -> None:
@@ -125,7 +125,7 @@ class Entity:
 
         self._texture = pygame.transform.scale(
             self.__run_right_texture[self._texture_counter//self.__texture_frames],
-            (self._width, self._height)) # texture for moving
+            (self._height, self._height)) # texture for moving
 
 
         if not on_distance:
@@ -148,7 +148,7 @@ class Entity:
 
         self._texture = pygame.transform.scale(
             self.__run_left_texture[self._texture_counter//self.__texture_frames],
-            (self._width, self._height)) # texture for moving
+            (self._height, self._height)) # texture for moving
 
 
         if not on_distance:
@@ -162,20 +162,20 @@ class Entity:
 
     def _jump(self, on_distance: bool = False, distance: int = 0) -> bool:
         if self._last_func == 'jump':
-            self._texture_counter = 1
+            self._texture_counter = 5
         else:
-            self._texture_counter = 0
+            self._texture_counter = 5
         self._last_func = 'jump'
 
         if self._texture_last_move == 'left': # texture direction
             self._texture = pygame.transform.scale(
                 self.__jump_left_texture[self._texture_counter//self.__texture_frames],
-                (self._width, self._height))
+                (self._height, self._height))
 
         elif self._texture_last_move == 'right':
             self._texture = pygame.transform.scale(
                 self.__jump_right_texture[self._texture_counter//self.__texture_frames],
-                (self._width, self._height))
+                (self._height, self._height))
 
 
         if not on_distance:
@@ -197,18 +197,18 @@ class Entity:
         if self._last_func == 'fall':
             self._texture_counter = 1
         else:
-            self._texture_counter = 0
+            self._texture_counter = 1
         self._last_func = 'fall'
 
         if self._texture_last_move == 'left': # texture direction
             self._texture = pygame.transform.scale(
                 self.__fall_left_texture[self._texture_counter//self.__texture_frames],
-                (self._width, self._height))
+                (self._height, self._height))
 
         elif self._texture_last_move == 'right':
             self._texture = pygame.transform.scale(
                 self.__fall_right_texture[self._texture_counter//self.__texture_frames],
-                (self._width, self._height))
+                (self._height, self._height))
 
 
         if not on_distance:

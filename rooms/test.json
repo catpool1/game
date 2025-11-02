@@ -1,6 +1,6 @@
 {
     "player": {
-        "speed_x": 16,
+        "speed_x": 18,
         "fall_speed": 8,
         "jump_height": 11,
         "direction": "none",
@@ -10,8 +10,8 @@
             0
         ],
         "size": [
-            63,
-            91
+            64,
+            96
         ],
         "texture_name": "knight"
     },
@@ -84,12 +84,12 @@
     "objects": [
         {
             "pos": [
-                100,
-                170
+                200,
+                906
             ],
             "size": [
                 80,
-                22
+                20
             ],
             "texture": "object_standard"
         },
@@ -162,7 +162,7 @@
         {
             "pos": [
                 1100,
-                700
+                705
             ],
             "size": [
                 80,
@@ -295,12 +295,23 @@
     "spikes": [
         {
             "pos": [
-                1320,
+                1340,
                 630
             ],
             "size": [
-                40,
-                40
+                20,
+                20
+            ],
+            "texture": "enemy_test"
+        },
+        {
+            "pos": [
+                250,
+                0
+            ],
+            "size": [
+                50,
+                50
             ],
             "texture": "enemy_test"
         }
