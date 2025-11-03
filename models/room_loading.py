@@ -13,8 +13,8 @@ def room_load(level_name: str) -> tuple:
     with open(f'rooms/{level_name}.json', 'r') as f:
         js = json.load(f)
 
-    player = Player(js['player']['speed_x'], js['player']['fall_speed'], js['player']['jump_height'], js['player']['direction'],
-                    js['player']['hp'], js['player']['pos'], js['player']['size'], js['player']['texture_name'])
+    player = Player(js['player']['speed_x'], js['player']['jump_height'], js['player']['direction'], js['player']['hp'],
+                    js['player']['pos'], js['player']['size'], js['player']['texture_name'])
 
     enemies = []
     # for en in js['enemies']:

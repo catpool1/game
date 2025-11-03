@@ -10,7 +10,7 @@
             0
         ],
         "size": [
-            64,
+            54,
             96
         ],
         "texture_name": "knight"
@@ -301,17 +301,6 @@
             "size": [
                 20,
                 20
-            ],
-            "texture": "enemy_test"
-        },
-        {
-            "pos": [
-                250,
-                0
-            ],
-            "size": [
-                50,
-                50
             ],
             "texture": "enemy_test"
         }

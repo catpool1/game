@@ -1,13 +1,13 @@
 from models.entity import Entity
 
 class Enemy(Entity):
-    def __init__(self, speed_x: int = 5, fall_speed: int = 10, jump_height: int = 8, direction: str = 'right', hp: int = 100,
+    def __init__(self, speed_x: int = 5, jump_height: int = 8, direction: str = 'right', hp: int = 100,
                  pos: tuple = (300, 0), size: tuple = (50, 50), texture_name: str = 'enemy_test') -> None:
-        super().__init__(speed_x, fall_speed, jump_height, direction, hp, pos, size, texture_name)
+        super().__init__(speed_x, jump_height, direction, hp, pos, size, texture_name)
 
         self.__last_move = ''
 
-    def move(self, screen_height: int, objects: list) -> None:
+    def move(self, objects: list) -> None:
 
         if self._direction == 'left':
             if self.__last_move != 'left':
@@ -16,12 +16,12 @@ class Enemy(Entity):
 
             for obj in objects:
                 if obj.is_on_left(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_left(True, obj.get_distance_left())
+                    self._move_left(True, obj.get_x_right())
                     self._direction = 'right'
                     break
 
                 if obj.is_on_left_edge(self._move_count, self.get_xy()):
-                    self._move_left(True, obj.get_distance_right(self.get_size()) + self._width)
+                    self._move_left(True, obj.get_x_left(self.get_size()) + self._width)
                     self._direction = 'right'
                     break
             else:
@@ -34,12 +34,12 @@ class Enemy(Entity):
 
             for obj in objects:
                 if obj.is_on_right(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_right(True, obj.get_distance_right(self.get_size()))
+                    self._move_right(True, obj.get_x_left(self.get_size()))
                     self._direction = 'left'
                     break
 
                 if obj.is_on_right_edge(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_right(True, obj.get_distance_left() - self._width)
+                    self._move_right(True, obj.get_x_right() - self._width)
                     self._direction = 'left'
                     break
             else:
@@ -52,7 +52,7 @@ class Enemy(Entity):
         for obj in objects:
             if obj.is_under(self._fall_count, self.get_xy(), self.get_size()):
                 self._fall_count = 0
-                self._fall(True, obj.get_distance_up())
+                self._fall(True, obj.get_y_up())
                 break
         else:
             self._fall()

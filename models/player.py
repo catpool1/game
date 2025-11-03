@@ -2,9 +2,9 @@ from models.entity import Entity
 import pygame
 
 class Player(Entity):
-    def __init__(self, speed_x: int = 10, fall_speed: int = 6, jump_height: int = 10, direction: str = 'none', hp: int = 100,
+    def __init__(self, speed_x: int = 10, jump_height: int = 10, direction: str = 'none', hp: int = 100,
                  pos: tuple = (50, 0), size: tuple = (50, 50), texture_name: str = 'player_test') -> None:
-        super().__init__(speed_x, fall_speed, jump_height, direction, hp, pos, size, texture_name)
+        super().__init__(speed_x, jump_height, direction, hp, pos, size, texture_name)
 
         self.__last_move = ''
         self.__is_jump = False
@@ -12,7 +12,7 @@ class Player(Entity):
         self.__jump_pause = False
 
 
-    def move(self, screen_height: int, keys: tuple, objects: list) -> None:
+    def move(self, keys: tuple, objects: list) -> None:
         if (keys[pygame.K_a] and keys[pygame.K_d]) or (not keys[pygame.K_a] and not keys[pygame.K_d]):
             if not self.__is_jump:
                 self._stay()
@@ -28,7 +28,7 @@ class Player(Entity):
 
             for obj in objects:
                 if obj.is_on_left(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_left(True, obj.get_distance_left())
+                    self._move_left(True, obj.get_x_right())
                     break
             else:
                 self._move_left()
@@ -41,7 +41,7 @@ class Player(Entity):
 
             for obj in objects:
                 if obj.is_on_right(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_right(True, obj.get_distance_right(self.get_size()))
+                    self._move_right(True, obj.get_x_left(self.get_size()))
                     break
             else:
                 self._move_right()
@@ -51,6 +51,7 @@ class Player(Entity):
             self._texture_last_move = 'right'
 
 
+        # jumping and falling
         for obj in objects:
             if obj.is_under(self._fall_count, self.get_xy(), self.get_size()):
                 self._fall_count = 0
@@ -61,14 +62,14 @@ class Player(Entity):
                         self.__is_jump = True
                         self.__jump_pause = True
 
-                    if obj.get_distance_up() != self._y:
-                        self._fall(True, obj.get_distance_up())
+                    if obj.get_y_up() != self._y:
+                        self._fall(True, obj.get_y_up())
                         self.__is_fall = False
                 break
 
             if self.__is_jump:
                 if obj.is_upper(self._jump_count, self.get_xy(), self.get_size()):
-                    self._jump(True, obj.get_distance_down(self.get_size()))
+                    self._jump(True, obj.get_y_down(self.get_size()))
                     self.__is_jump = False
         else:
             if not self.__is_jump:

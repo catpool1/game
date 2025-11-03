@@ -45,7 +45,7 @@ class Object:
                     return True
         return False
 
-    def get_distance_up(self) -> int:
+    def get_y_up(self) -> int:
         return self._y + self._height
 
 
@@ -59,7 +59,7 @@ class Object:
                     return True
         return False
 
-    def get_distance_right(self, target_size: tuple) -> int:
+    def get_x_left(self, target_size: tuple) -> int:
         return self._x - target_size[0]
 
 
@@ -73,7 +73,7 @@ class Object:
                     return True
         return False
 
-    def get_distance_left(self) -> int:
+    def get_x_right(self) -> int:
         return self._x + self._width
 
 
@@ -85,11 +85,11 @@ class Object:
                 (target_x < self._x + self._width <= target_x + target_width) or \
                 (self._x < target_x < target_x + target_width < self._x + self._width):
             if target_y <= self._y + self._height:
-                if target_y + target_height + (target_jump_count**2)/2 >= self._y:
+                if target_y + target_height + (target_jump_count**2)//2 >= self._y:
                     return True
         return False
 
-    def get_distance_down(self, target_size: tuple) -> int:
+    def get_y_down(self, target_size: tuple) -> int:
         return self._y - target_size[1]
 
 

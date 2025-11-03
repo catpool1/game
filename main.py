@@ -20,7 +20,6 @@ font_fps = pygame.font.SysFont("timesnewroman", 20)
 
 
 # bugs:
-# fall threw collisions:  5 - 6 / 24 - 27 / 41 - 45 // 148 - 152 / 178 - 180 / 260 - 360
 # jump threw collisions on some pixels: 360 -> 440
 
 
@@ -61,7 +60,7 @@ while True:
     # enemies
     # for en in enemies:
     #     en.blit(screen, HEIGHT)
-    #     en.move(HEIGHT, objects)
+    #     en.move(objects)
     #     if en.is_collided(HEIGHT, player.get_rect(HEIGHT)):
     #         en.result(player)
 
@@ -96,7 +95,7 @@ while True:
 
     # player
     player.blit(screen, HEIGHT)
-    player.move(HEIGHT, keys, objects)
+    player.move(keys, objects)
 
 
     # display update
