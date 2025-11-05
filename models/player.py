@@ -13,6 +13,8 @@ class Player(Entity):
 
 
     def move(self, keys: tuple, objects: list) -> None:
+        nearest = 0
+
         if (keys[pygame.K_a] and keys[pygame.K_d]) or (not keys[pygame.K_a] and not keys[pygame.K_d]):
             if not self.__is_jump:
                 self._stay()
@@ -26,12 +28,17 @@ class Player(Entity):
                 self.__last_move = 'left'
                 self._texture_last_move = 'left'
 
+            nearest = -10000
             for obj in objects:
                 if obj.is_on_left(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_left(True, obj.get_x_right())
-                    break
-            else:
+                    if obj.get_x_right() > nearest:
+                        nearest = obj.get_x_right()
+
+            if nearest == -10000:
                 self._move_left()
+            else:
+                self._move_left(True, nearest)
+
 
         elif keys[pygame.K_d]:
             if self.__last_move != 'right':
@@ -39,12 +46,16 @@ class Player(Entity):
                 self.__last_move = 'right'
                 self._texture_last_move = 'right'
 
+            nearest = 10000
             for obj in objects:
                 if obj.is_on_right(self._move_count, self.get_xy(), self.get_size()):
-                    self._move_right(True, obj.get_x_left(self.get_size()))
-                    break
-            else:
+                    if obj.get_x_left(self.get_size()) < nearest:
+                        nearest = obj.get_x_left(self.get_size())
+
+            if nearest == 10000:
                 self._move_right()
+            else:
+                self._move_right(True, nearest)
 
         else:
             self.__last_move = ''
@@ -84,6 +95,7 @@ class Player(Entity):
                 self.__is_jump = False
 
         self.__jump_pause = False
+        print(nearest)
 
 
     def death(self):
